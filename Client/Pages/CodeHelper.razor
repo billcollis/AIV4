@@ -1,0 +1,417 @@
+﻿@page "/codehelper"
+@layout EmptyLayout
+
+
+@using Microsoft.AspNetCore.SignalR.Client
+@using OpenAI
+@using OpenAI.Chat
+@using Newtonsoft.Json
+@using System.Text
+@using AIV4.Shared
+@using Microsoft.Fast.Components.FluentUI
+@using Microsoft.AspNetCore.Components.WebAssembly.Hosting
+
+
+@inject IWebAssemblyHostEnvironment Env
+@inject HttpClient Http
+@inject NavigationManager NavManager
+@inject IJSRuntime JSRuntime
+
+@* this page is used on the Grok page *@
+
+<PageTitle>CodeHelper</PageTitle>
+
+<div class="container-fluid">
+    <div>
+        <div class="dialog-title">
+            <h2>@appName @alert</h2>
+
+        </div>
+
+        <ConversationDisplay 
+            ConversationHistory="@conversationHistory" />
+
+        <div class="">
+            <div class="row">
+                <div class="col-6">
+                    <pre class="line-numbers">
+                    <code @onmouseup="@GetSelectedText" id="codeelement" class='language-python'>
+@programcode
+                        </code>
+                    </pre>
+                </div>
+                <div class="col-6">  
+                    <label>What assistance would you like with the code?</label>
+                    <br/>
+                    @* iterate through each prompt in the list to create radio buttons - if it includes Line# then add the select*@
+                    @* note that binding is not used for the radio but is used for the select *@
+                    @foreach (var keywordprompt in keyWordPrompts)
+                    {
+                        <input name="promptkeywordsel" type="radio" value="@keywordprompt.keyword" class="mx-2" @onchange="keywordSelected"/>
+                        @keywordprompt.keyword;
+                        @if (keywordprompt.keyword.IndexOf(lineNumberReqdTxt) > -1)
+                        {
+                            <select @bind="LineNumberBoundVar">
+                                <option value="0"></option>
+                                @for (var l = 1; l <= codearr.Count(); l++)
+                                {
+                                    if (codearr[l - 1] != "")
+                                    {
+                                        <option value="@l.ToString()">@l.ToString()</option>
+                                    }
+                                }
+                            </select>
+                        }
+                        @if (keywordprompt.keyword.IndexOf("selected code") > -1)
+                        {
+                            <span> &nbsp; &nbsp;</span>
+                            <span style="color:white; background-color: steelblue">@SelectedText</span>
+                        }
+                        <br />
+                    }
+                </div>
+            </div>
+            <div class=" row">
+                <div class="col-3">
+                    <p class=" fw-semibold"> Code Helper by Dr. Bill Collis (using @modelName) </p>
+                </div>
+                <div class="col-3">
+                    <div>
+                        <p>Tokens In:@tokensIn Out:@tokensOut</p>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-sm btn-primary "@onclick="SendPrompt">Ask Code Helper</button>
+                </div>
+                @if (!IsConnected)
+                {
+                    <button class="btn btn-warning" @onclick="Connect">Reconnect</button>
+                }
+             </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+
+
+
+    // /codehelper?code=import cmath%0A%0Aa = 1%0Ab = 5%0Ac = 6%0Ad = (b**2) - (4*a*c)%0Asol1 = (-b-cmath.sqrt(d))/(2*a)%0Asol2 = (-b+cmath.sqrt(d))/(2*a)%0Aprint('The solution are {0} and {1}'.format(sol1,sol2))
+    //for some reason when the above is called the + dissappears!!!
+
+
+    private string selectedCode = "";
+
+    private string appName = "CodeHelper";
+    private string modelName = "gpt-4o-mini"; // "gpt-4o";
+    string alert = "disconnected";
+
+    private HubConnection? textChatHubConnection;
+    public bool IsConnected => textChatHubConnection?.State == HubConnectionState.Connected;
+    private string user = "";
+
+    //my own class for capturing conversations
+    private List<ConversationContent> conversationHistory = new List<ConversationContent>();
+
+
+    private string programcode = "print('some code')";
+    private string[] codearr = new string[0];
+    private string selectedKeyword = "";
+    private string lineNumberReqdTxt = "Line#";// if the prompt contains this string then we will add select with line number and send line number as well
+    private string? selectedCodeLine;
+    private string? LineNumberBoundVar//the use of binding -https://stackoverflow.com/questions/49947790/blazor-onchange-event-with-select-dropdown
+    {
+        get
+        { 
+            return selectedCodeLine;  
+        }
+        set
+        { //when select chages this fires - note it blocks use of onchange event
+            selectedCodeLine = value; 
+        }
+    }
+
+
+
+    private string systemPrompt = "You are a super smart helpful programming expert, helping a new programmer. Provide only the information asked for and no extra information";
+    private string prompt = "";
+    private string message = "";
+    private string responses = "";
+
+
+    public string? SelectedText { get; set; }
+    async Task GetSelectedText()
+    {
+        try
+        {        
+            SelectedText = " " + await JSRuntime.InvokeAsync<string>("getSelectedText") + " "; //in index.html file
+            Console.WriteLine(SelectedText);
+        }
+        catch(Exception e)
+        {
+            var exc = e;
+        }
+    }
+
+
+    //https://chrissainty.com/working-with-query-strings-in-blazor/
+    void GetQueryStringValues()
+    {
+        NavManager.TryGetQueryString<string>("code", out programcode); //https://chrissainty.com/working-with-query-strings-in-blazor/
+        if (programcode == null || programcode == "")
+        {
+            programcode = @"#demo program
+import cmath
+a = 1
+b = 2
+c = 6
+d=(b**2) - (4*a*c)
+sol1=(-b+cmath.sqrt(d))/(2*a)
+sol2=(-b-cmath.sqrt(d))/(2*a)
+print('The solutions are{0} and {1}'.format(sol1,sol2))";
+        }
+        codearr = programcode.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+        NavManager.TryGetQueryString<string>("prompt", out prompt);
+    }
+
+
+    private List<Codehelperprompt> keyWordPrompts = new();
+    protected override async Task OnInitializedAsync()
+    {
+        GetQueryStringValues();
+        NavManager.LocationChanged += HandleLocationChanged;
+        try
+        {
+            await Connect();
+            keyWordPrompts = await Http.GetFromJsonAsync<List<Codehelperprompt>>("PromptKeywords");// Get from PromptKeywordsController;
+        }
+        catch (Exception exc)
+        {
+            var e = exc;
+        }
+
+    }
+
+    private void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        GetQueryStringValues();
+        StateHasChanged();
+    }
+
+    private async Task Disconnect()
+    {
+        await textChatHubConnection.DisposeAsync();
+        if (IsConnected)
+        {
+            Alert("");
+        }
+        else
+        {
+            Alert("disconnected");
+        }
+        StateHasChanged();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("Prism.highlightAll");
+        }
+        catch (Exception exc)
+        {
+            var e = exc;//this exception is caught when the application loads as the JS is still loading
+        }
+    }
+
+    //connect to the hub on the server
+    private async Task Connect()
+    {
+        try
+        {
+            textChatHubConnection = new HubConnectionBuilder()
+                .WithUrl(NavManager.ToAbsoluteUri($"/chatgpthub?user={user}")) //not using username currently
+                .Build();
+
+            //the 'channel'(?) for communication
+            textChatHubConnection.On<string>("textChat", (message) =>
+            {
+                if (getStats(message))
+                {
+                    StateHasChanged();
+                    return;//dont add stats to conv history
+                }
+                addTextToConvHistory(message);
+                //JSRuntime.InvokeVoidAsync("scrollToBottom", ScrollAreaRef);
+                StateHasChanged();
+            });
+
+            await textChatHubConnection.StartAsync();
+            if (IsConnected)
+            {
+                Alert(""); //blank messge
+            }
+            else
+            {
+                Alert("disconnected"); //warn user disconnected from hub
+            }
+
+        }
+        catch (Exception exc)
+        {
+            var e = exc;
+        }
+    }
+
+    private void Alert(string msg)
+    {
+        if (msg == "")
+        {
+            alert = msg;
+        }
+        else
+        {
+            alert = "- " + msg;
+        }
+
+    }
+
+    private void keywordSelected(ChangeEventArgs args)
+    {
+        selectedKeyword = args.Value.ToString();
+    }
+
+
+    private async Task SendPrompt()
+    {
+        //if its not connected
+        if (!IsConnected)
+        {
+            await Connect();
+        }
+
+        //build the message - identity - code - prompt(s)
+        message = "";
+        message += "For this progam code";
+        message += "`";
+        message += programcode;
+        message += "`";
+        message += "\r\n";
+
+        var foundKeywordPrompt = keyWordPrompts.FirstOrDefault(p => p.keyword.Equals(selectedKeyword, StringComparison.OrdinalIgnoreCase));
+        //get the specific prompt
+        message += foundKeywordPrompt!.prompt + "\r\n";
+        if (selectedKeyword.IndexOf(lineNumberReqdTxt) > -1)
+        {
+            var linenum = -1;
+            Int32.TryParse(LineNumberBoundVar, out linenum);
+            message += "***" + (codearr[linenum - 1]) + "***";
+        }
+        else if (selectedKeyword.IndexOf("selected code") > -1)
+        {
+            message += "***" + SelectedText + "***";
+        }
+
+
+        //keep the list of requested conversations to display to the user
+        var systemConv = new ConversationContent(Role.System, ContentType.Text, systemPrompt);
+
+        systemConv.PassPhrase = "locally";
+        if (conversationHistory.Count==0) //this causes the system prompt to only be shown once in the displa
+            conversationHistory.Add(systemConv);
+        //string marked = MarkDown.Parse(message);
+        var thisConv = new ConversationContent(message);
+        conversationHistory.Add(thisConv);
+
+        //minimal send - do not send any previous conversations. 
+        //just the system prompt and the current request from the user
+        var conversationToSend = new List<ConversationContent>();
+        conversationToSend.Add(systemConv);
+        conversationToSend.Add(thisConv);
+
+        var json = JsonConvert.SerializeObject(conversationToSend);
+        await textChatHubConnection.SendAsync("SendToOpenAIAPI", json, modelName);
+
+    }
+
+    private string statsSubstring = "Data...Token";
+    private int tokensIn = 0;
+    private int tokensOut = 0;
+
+    /// <summary>
+    /// get the token stats for this stream,
+    /// add to totals
+    /// </summary>
+    /// <param name="text"></param>
+    /// <returns></returns>
+    private bool getStats(string text)
+    {
+        //get stats - note specific formatting of the string in ChatGPTHub, starts with  "Data...Token Usage"
+        int indx = text.IndexOf(statsSubstring);
+        try
+        {
+            if (indx > -1)
+            {
+                string stats = text.Replace("\n\n\nData...Token Usage In:", "");
+
+                int spaceIndex = stats.IndexOf(" ");
+                string tokensString = stats.Substring(0, spaceIndex);
+                tokensIn += int.Parse(tokensString);
+                stats = stats.Replace(tokensString, "").Trim();
+
+                stats = stats.Replace("Out:", "");
+                spaceIndex = stats.IndexOf(" ");
+                tokensString = stats.Substring(0, spaceIndex);
+                tokensOut += int.Parse(tokensString);
+                return true;
+            }
+        }
+        catch (Exception e)
+        {
+            var exc = e;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Add the streamed response to the last conversation
+    /// </summary>
+    /// <param name="text"></param>
+    private void addTextToConvHistory(string text)
+    {
+        //Console.WriteLine(text);
+        text = CodeParser.Parse(text);
+        //Console.WriteLine(text);
+
+        //add the text to the last item in convHistory
+        // via automatic binding this is shown in the last conversation bubble
+        if (conversationHistory.Count > 0)
+        {
+            // Access the last convContent using index (Count - 1), if it is not assistant (openai response) create assistant
+            if (conversationHistory[conversationHistory.Count - 1].Role != Role.Assistant)
+            {
+                var conversationContent = new ConversationContent(Role.Assistant, ContentType.Text);
+                conversationContent.AppendTextResponse(text);
+                conversationHistory.Add(conversationContent);
+            }
+            else //add to last conv
+            {
+                conversationHistory[conversationHistory.Count - 1].AppendTextResponse(text);
+            }
+        }
+        StateHasChanged();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (textChatHubConnection is not null)
+        {
+            await textChatHubConnection.DisposeAsync();
+        }
+    }
+
+
+}
+
+

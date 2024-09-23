@@ -1,0 +1,92 @@
+{
+  "pprojects": [
+    {
+      "project_name": "GECKO",
+      "image_src": "Gecko1_sml.jpg",
+      "image_alt": "Screenshot of ",
+      "tech_list": [
+        ".NET",
+        "C#",
+        "Razor",
+        "Azure",
+        "Java",
+        "JavaScript",
+        "Bootstrap",
+        "JQuery",
+        "LTI"
+      ],
+      "project_description": "GECKO is an integrated learning platform for engineering assignments. It was used for both editing and delivering questions and assignments to thousands of first and second year engineering students. It includes automated marking features for students answers",
+      "project_url": "https://gecko1.azurewebsites.net/"
+    },
+    {
+      "project_name": "SystemDesignerJS",
+      "image_src": "SystemDesignerJS-sml.jpg",
+      "image_alt": "Screenshot of System Designer JS",
+      "tech_list": [
+        "JavaScript",
+        "JQuery",
+        "mindfusion.eu",
+        "JSCPP"
+      ],
+      "project_description": "Embedded C Simulator for AVR/Arduino/ESP32",
+      "project_url": "https://techideas.azurewebsites.net/systemdesignerjs/"
+    },
+    {
+      "project_name": "C-Interpreter",
+      "image_src": "EBNF-sml.gif",
+      "image_alt": "EBNF for the interpreter",
+      "tech_list": [
+        "EBNF",
+        "C#"
+      ],
+      "project_description": "An interpreter for embedded C written in C# and used with an embedded simulator application",
+      "project_url": "https://github.com/billcollis/C-Interpreter.git"
+    },
+    {
+      "project_name": "Curry-Up",
+      "image_src": "CurryUp-sml.jpg",
+      "image_alt": "LLM DT Curriculum App",
+      "tech_list": [
+        "C#",
+        ".Net",
+        "Blazor",
+        "Bootstrap",
+        "OpenAI API",
+        "Prompt Engineering"
+      ],
+      "project_description": " An AI based tool for Digital Technology teachers to develop and support their curriculum understandings",
+      "project_url": "https://xplainittome.azurewebsites.net/curry-up"
+    },
+    {
+      "project_name": "CodeHelper",
+      "image_src": "codehelper-sml.jpg",
+      "image_alt": "Support with program code",
+      "tech_list": [
+        "C#",
+        ".Net",
+        "Blazor",
+        "Bootstrap",
+        "OpenAI API",
+        "Prompt Engineering",
+        "prism.js"
+      ],
+      "project_description": " A demo AI programming code support tool for embedding within anther learning suite.",
+      "project_url": "https://xplainittome.azurewebsites.net/codehelper"
+    },
+    {
+      "project_name": "BB7 - BrainyBuddy",
+      "image_src": "bb7_sml.jpg",
+      "image_alt": "7 student chatbots tools",
+      "tech_list": [
+        "C#",
+        ".Net",
+        "Blazor",
+        "Bootstrap",
+        "OpenAI API",
+        "Prompt Engineering"
+      ],
+      "project_description": "An AI based chat tool for students to support them in project work, skills assessment,...",
+      "project_url": "https://xplainittome.azurewebsites.net/bb7"
+    }
+  ]  
+}

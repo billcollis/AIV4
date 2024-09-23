@@ -1,0 +1,463 @@
+﻿@page "/Curry-up"
+@layout EmptyLayout
+
+
+@using Microsoft.AspNetCore.SignalR.Client
+@using OpenAI;
+@using OpenAI.Chat;
+@using Newtonsoft.Json;
+@using System.Text;
+@using AIV4.Shared;
+@using Microsoft.Fast.Components.FluentUI;
+
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+
+<PageTitle>@AppName</PageTitle>
+
+<div class="container">
+    <div class="col-md-12">
+        <div>
+                <h2>@AppName</h2>
+        </div>
+    </div>
+
+    <div class="accordion" id="accordionConcepts">
+        @for (int i=0; i<DTCurriculum.Concepts.Count; i++)
+        {
+            int indx = i;
+            accordionButtonRef.Add(new ElementReference());
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panel-heading@i">
+                    <button class="accordion-button collapsed" @ref=accordionButtonRef[indx] type="button" data-bs-toggle="@IsCollapsable[i]" data-bs-target="#panel-@i" aria-expanded="false" aria-controls="panel-@i"
+                            @onclick="eventArgs => { 
+                                accordionClick(indx); 
+                            }">
+                        @DTCurriculum.Concepts[i].ConceptName
+                    </button>
+                </h2>
+                <div id="panel-@i" class="accordion-collapse collapse" aria-labelledby="panel-heading@i">
+                    <div class="accordion-body">
+                        <div class="row row-cols-6 g-2 text-dark">
+                            <div class="col h6">Foundation</div>
+                            <div class="col h6">1-2</div>
+                            <div class="col h6">3-4</div>
+                            <div class="col h6">5-6</div>
+                            <div class="col h6">7-8</div>
+                            <div class="col h6">9-10</div>
+                            @{
+                                var CDs = DTCurriculum.Concepts[i].FlattenedCDs;
+                                foreach (var cd in CDs)
+                                {
+                                    var Value = cd.Code;
+                                    bool Checked = false;
+                                    <div class="card h6">
+                                        @if (cd.Code != "")
+                                        {
+                                            <div class="checkbox">
+                                                <label for="cb-@cd.Code">
+                                                    <span>@cd.Code</span>
+                                                </label>
+                                                <input type="checkbox" checked="@Checked" id="cb-@cd.Code" value="cb-@cd.Code" class="checkbox float-end"
+                                                       @onchange="eventArgs => { 
+                                                            CheckboxClicked(Value, eventArgs.Value); 
+                                                        }">
+                                            </div>
+                                            <div>@cd.Description</div>
+                                        }
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>          
+        }
+     </div>
+
+   <section>
+        @*    <FluentAccordion>
+        @foreach (var concept in DTCurriculum.Concepts)
+        {
+        <FluentAccordionItem class="h5 text-dark bg-secondary" onselect="" Heading="@concept.ConceptName" >
+        <div class="row row-cols-6 g-2 text-dark">
+        <div class="col h6">Foundation</div>
+        <div class="col h6">1-2</div>
+        <div class="col h6">3-4</div>
+        <div class="col h6">5-6</div>
+        <div class="col h6">7-8</div>
+        <div class="col h6">9-10</div>
+        @{
+        var CDs = concept.FlattenedCDs;
+        foreach (var cd in CDs)
+        {
+        var Value = cd.Code;
+        bool Checked = false;
+        <div class="card h6">
+        @if (cd.Code != "")
+        {
+        <div class="checkbox">
+        <label for="cb-@cd.Code">
+        <span>@cd.Code</span>
+        </label>
+        <input type="checkbox" checked="@Checked" id="cb-@cd.Code" value="cb-@cd.Code" class="checkbox float-end"
+        @onchange="eventArgs => { CheckboxClicked(Value, eventArgs.Value); }"
+        >
+        </div>
+        <div>@cd.Description</div>
+        }
+        </div>
+        }
+        }
+        </div>
+        </FluentAccordionItem>
+        }
+        </FluentAccordion>
+
+        *@
+
+   </section>
+ 
+    <p class="text-end fw-semibold">@AppName by Dr. Bill Collis (using @modelName)</p>
+</div>
+@* 
+ The modal popup 
+ pass parameter show... to the popup to make it visible
+ When the popup closes the callback will change OnClose property, which is bound to the local property
+ *@
+@if (ShowElaborationsPopup)
+{
+    <ElabPopup 
+        Show= "@ShowElaborationsPopup"
+        OnClose="@CloseElabPopup"
+        CD1="@SelectedCD1"
+               ModelName="@modelName" />
+}
+
+@if (ShowCurryExplainPopup)
+{
+    <CurryExplainChat 
+        Show = "@ShowCurryExplainPopup"
+        OnClose = "@CloseCurryExplainPopup"
+        CD1 = "@SelectedCD1"
+                      ModelName="@modelName"
+        Prompts="@Prompts.prompts.unpack"
+    />
+}
+
+@if (ShowStepupPopup)
+{
+    <StepupPopup
+        Show="@ShowStepupPopup"
+        OnClose="@CloseStepupPopup"
+        CDFrom="@SelectedCD2" 
+        CDTo = "@SelectedCD3"
+        ModelName="@modelName"
+        Prompts="@Prompts.prompts.stepup"
+        />
+}
+
+@* @if (ShowUnitBuilderPopup)
+{
+    <UnitBuilder Show="@ShowUnitBuilderPopup"
+        OnClose="@CloseUnitBuilderPopup" 
+        CD1="@SelectedCD1"
+        CD2="@SelectedCD2"
+        CD3="@SelectedCD3"
+        OpenaiModel="@openaiModel"
+        Prompts="@Prompts.prompts.unitbuilder" />
+} *@
+
+
+<div>
+    <FluentDialog @ref="cdSelectedDialog"  PreventScroll="false" Modal="false" aria-label="Simple dialog" TrapFocus=false @ondialogdismiss=OnDismiss>
+        <FluentDialogHeader ShowDismiss="true">
+            <FluentStack FluentUI.VerticalAlignment="VerticalAlignment.Center">
+                <FluentLabel Typo="Typography.PaneHeader">
+                    @PopupTitle
+                </FluentLabel>
+            </FluentStack>
+        </FluentDialogHeader>
+
+        <h5>What would you like to do?</h5>
+        @if (SelectedCDs.Count == 1)
+        {
+            <FluentButton Style="display:block;" Appearance="Appearance.Accent" Autofocus="true" @onclick="ExplainIt">Explain this CD</FluentButton>
+            <FluentButton Style="display:block;" Appearance="Appearance.Accent" Autofocus="true" @onclick="Elaborations">Look at the Elaborations</FluentButton>
+        }
+        @if (adjacentCDs.Count > 0 && SelectedCDs.Count == 1)
+        {
+            <p>Do a stepup comparison</p>
+            if (adjacentCDs[0] != "")
+            {
+                <FluentButton Style="display:block;" Appearance="Appearance.Accent" Autofocus="true" @onclick="StepupBelow">From @adjacentCDs[0] to @selectedCDCode</FluentButton>
+            }
+            if (adjacentCDs[1] != "")
+            {
+                <FluentButton Style="display:block;" Appearance="Appearance.Accent" Autofocus="true" @onclick="StepupAbove">From @selectedCDCode to @adjacentCDs[1]</FluentButton>
+            }
+            <p>Close this and select up to 2 more CDs to build a unit encompassing several content descriptors</p>
+        }
+        @if (SelectedCDs.Count>1)
+        {
+            PopupTitle = "Unit Builder";
+            <H5>@SelectedCDs[0]</H5>
+            <H5>@SelectedCDs[1]</H5>
+            if (SelectedCDs.Count == 3)
+            {
+                <H5>@SelectedCDs[2]</H5>
+            }
+
+            <p>Select up to 3 CDs to build a unit of work </p>
+            <FluentButton Style="display:block;"  Appearance="Appearance.Accent" Autofocus="true" @onclick="UnitBuilder">Build a unit</FluentButton>            
+        }
+    </FluentDialog>
+</div>  
+
+
+
+@code {
+    //properties
+    //private string modelName = "gpt-3.5-turb";
+    private string modelName = "gpt-4o-mini";
+
+    private string AppName = "Curry-up";
+    //private CurriculumModel Curriculum = new CurriculumModel();//what is imported
+    private DTCurriculum DTCurriculum = new DTCurriculum();//what we need for concepts
+    private PromptsModel Prompts = new PromptsModel();
+
+    private string selectedCDCode = "";
+    private string selectedConceptName = "";
+    private List<string> selectedConcepts = new List<string>();
+    private Concept SelectedConcept = new Concept();
+    private List<ContentDescription> CDList = new List<ContentDescription>();
+    private ContentDescription SelectedCD1 = new ContentDescription();
+    private ContentDescription SelectedCD2 = new ContentDescription();
+    private ContentDescription SelectedCD3 = new ContentDescription();
+    private int CDIndex = 0;//each CD has a sequential index in cdList
+    private string LevelName = "";
+    private string Age = "";
+    private List<string> adjacentCDs = new List<string>();
+
+
+    private bool ShowUnitBuilderPopup { get; set; } = false;
+    public void CloseUnitBuilderPopup()
+    {
+        ShowUnitBuilderPopup = false;
+    }
+
+    private bool ShowStepupPopup { get; set; } = false;
+    public void CloseStepupPopup()
+    {
+        ShowStepupPopup = false;
+    }
+
+    private bool ShowCurryExplainPopup { get; set; } = false;
+    public void CloseCurryExplainPopup()
+    {
+        ShowCurryExplainPopup = false;
+    }
+
+    private bool ShowElaborationsPopup { get; set; } = false;
+    public void CloseElabPopup()
+    {
+        ShowElaborationsPopup = false;
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Prompts = await Http.GetFromJsonAsync<PromptsModel>("Prompts");
+            // Get in PromptsContoller
+            //get dtcurr from  CurriculumController
+            //use some testing here to check status is ok
+            IsCollapsable = new List<string>();//we dont want to collapse the tab is there is a CD selectd
+            DTCurriculum = await Http.GetFromJsonAsync<DTCurriculum>("Curriculum");
+            foreach (var concept in DTCurriculum.Concepts)
+            {
+                IsCollapsable.Add("collapse"); // opposite is "noncollapsing"
+                foreach (var cd in concept.FlattenedCDs)
+                {
+                    cd.ConceptName = concept.ConceptName;
+                    DTCurriculum.CDs.Add(cd);
+                }
+            }   
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+            cdSelectedDialog!.Hide();
+    }
+
+    //CD popup
+    private string PopupTitle = "";
+    private List<string> SelectedCDs = new List<string>();
+    public void CheckboxClicked(string aSelectedId, object aChecked)
+    {
+        selectedCDCode = aSelectedId;//the cd that has been selected
+        foreach (var cd in DTCurriculum.CDs)
+        {
+            if (cd.Code == selectedCDCode)//get the concept name and the cd 
+            {
+                selectedConceptName = cd.ConceptName;
+                SelectedCD1 = cd;
+                break;
+            }
+        }
+
+        if ((bool)aChecked)//if it was checked
+        {
+            selectedConcepts.Add(selectedConceptName); //keep track of the selected concetps to control expand/collapse of accodrion
+                                                       //if (!SelectedCDs.Contains(selectedCDCode))
+                                                       //{
+            SelectedCDs.Add(selectedCDCode);
+            //}
+            if (SelectedCDs.Count == 1)//show a popup with instuctions
+            {
+                PopupTitle = selectedCDCode;
+                adjacentCDs = getAdjacentCDs(selectedCDCode);
+                cdSelectedDialog!.Show(); //learnt something new - Null Forgiving Operator
+            }
+            if (SelectedCDs.Count == 2)
+            {
+                cdSelectedDialog!.Show();
+            }
+            if (SelectedCDs.Count == 3)
+            {
+                cdSelectedDialog!.Show();
+            }
+            else//show unit builder
+            {
+
+            }
+        }
+        else //if it was unchecked
+        {
+            selectedConcepts.Remove(selectedConceptName);
+            SelectedCDs.Remove(selectedCDCode);
+        }
+        StateHasChanged();
+    }
+    private FluentDialog? cdSelectedDialog;
+    private bool _trapFocus = true;
+    private bool _modal = true;
+    private bool _preventScroll = true;
+    private string? _status;
+    private bool Hidden { get; set; } = true;
+    private void StepupBelow()
+    {
+        //setup the right parameters
+        SelectedCD3 = SelectedCD1;
+        foreach (var cd in DTCurriculum.CDs)
+        {
+            if (cd.Code == adjacentCDs[0])
+            {
+                SelectedCD2 = cd;
+                break;
+            }
+        }
+        ShowStepupPopup = true;
+    }
+    private void StepupAbove()
+    {
+        SelectedCD2 = SelectedCD1;
+        foreach (var cd in DTCurriculum.CDs)
+        {
+            if (cd.Code == adjacentCDs[1])
+            {
+                SelectedCD3 = cd;
+                break;
+            }
+        }
+        ShowStepupPopup = true;
+    }
+    private void UnitBuilder()
+    {
+        foreach (var cd in DTCurriculum.CDs)
+        {
+            if (cd.Code == SelectedCDs[0])
+            {
+                SelectedCD1 = cd;
+            }
+            if (cd.Code == SelectedCDs[1])
+            {
+                SelectedCD2 = cd;
+            }
+            if (SelectedCDs.Count > 2 && cd.Code == SelectedCDs[2])
+            {
+                SelectedCD3 = cd;
+            }
+            if (SelectedCDs.Count == 2)
+            {
+                SelectedCD3 = new ContentDescription();
+            }
+        }
+        ShowUnitBuilderPopup = true;
+    }
+    private void ExplainIt()
+    {
+        ShowCurryExplainPopup = true;
+    }
+    private void Elaborations()
+    {
+        ShowElaborationsPopup = true;
+    }
+    private void OnDismiss(DialogEventArgs args)
+    {
+        if (args is not null && args.Reason is not null && args.Reason == "dismiss")
+        {
+            cdSelectedDialog!.Hide();
+        }
+    }
+
+    //accordion event
+    List <ElementReference> accordionButtonRef = new List<ElementReference>();
+    private List<string> IsCollapsable = new();
+    private void accordionClick(int indx)
+    {
+       // IsCollapsable[indx] = "noncollapsing"; //opposite to collapse
+    }
+
+    //get the prior and next CDNames
+    private List<string> getAdjacentCDs(string cdName)
+    {
+        List<string> adj = new List<string>();
+        adj.Add("");
+        adj.Add("");
+
+        string prior = "";
+        string next = "";
+        string conceptName = "";
+        int index = 0;
+        for (int i = 0; i < DTCurriculum.CDs.Count; i++)
+        {
+            var mod = i % 6;
+            if (DTCurriculum.CDs[i].Code == cdName)
+            {
+                if (i > 0){
+                    if (DTCurriculum.CDs[i - 1].Code != "" && (mod != 0))
+                    {
+                        adj[0] = DTCurriculum.CDs[i - 1].Code;
+                    }
+                }
+                if (i < DTCurriculum.CDs.Count-1 && (mod != 5))
+                {
+                    if (DTCurriculum.CDs[i + 1].Code != "")
+                    {
+                        adj[1] = DTCurriculum.CDs[i + 1].Code;
+                    }
+                }
+            }
+        }
+        return adj;
+    }
+
+}

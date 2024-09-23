@@ -1,0 +1,63 @@
+﻿
+body {
+    font-family: "Fira Code", monospace;
+    margin: 0;
+    background-color: #282C33;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #FFFFFF;
+}
+
+p {
+    color: #ABB2BF;
+}
+
+h2 {
+    font-size: 32px;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    background-color: transparent;
+    border: 1px solid #C778DD;
+    color: #FFFFFF;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+
+    button.success {
+        border: 1px solid green;
+    }
+
+    button.warning {
+        border: 1px solid orangered;
+    }
+
+    button:hover {
+        background-color: #C778DD;
+    }
+
+        button:hover.success {
+            background-color: greenyellow;
+        }
+
+        button:hover.warning {
+            background-color: orange;
+        }
+
+a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+/*# sourceMappingURL=global.css.map */

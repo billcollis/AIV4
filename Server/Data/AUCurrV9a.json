@@ -1,0 +1,1045 @@
+{
+    "Name":"Australian Curriculum V9",
+    "LearningAreas":[
+        {
+            "LearningAreaName":"Technologies",
+            "Subjects":[
+                {
+                    "SubjectName":"Digital Technologies",
+                    "Levels":[
+                        {
+                          "LevelName": "Foundation",
+                            "Age": 5,
+                            "Description":"Learning in Digital Technologies builds on the Early Years Learning Framework and each student’s prior learning and experiences.\nBy the end of Foundation students should have had the opportunity to experience computational thinking by experimenting with different ways of representing an idea or action with a symbol, object or picture that is understood by others, such as a sun indicating fine conditions in a weather forecast. \nThrough Digital Technologies and Mathematics (Statistics), students have opportunities to explore different ways that data can be acquired and recorded, for example using a tablet to take photographs of plants in the school garden. Students have opportunities to develop their confidence with using digital systems by creating content such as simple messages. They become familiar with the difference between data that is owned by them, such as a photo of themselves, and data that is publicly available, such as a photo of their school. Through guided play experiences and tasks, students develop systems thinking by exploring how digital systems, such as tablets, smartphones and laptops can be used for different purposes, at school and at home. \nIn Digital Technologies, students should have frequent opportunities for authentic learning by making key connections with other learning areas.",
+                            "DTAchievementStandard":"By the end of Foundation students show familiarity with digital systems and use them for a purpose. They represent data using objects, pictures and symbols and identify examples of data that is owned by them.",
+                            "LAAchievementStandard":"By the end of Foundation students identify familiar products, services and environments and develop familiarity with digital systems, using them for a purpose. They create, communicate and choose design ideas. Students follow steps and use materials and equipment to safely make a designed solution for a school-selected context. They show how to represent data using objects, pictures and symbols and identify examples of data that is owned by them.",
+                            "Strands":[
+                               {
+                                    "StrandName":"Knowledge and understanding",
+                                    "SubStrands":[
+                                        {
+                                            "SubStrandName":"Digital systems",
+                                            "ContentDescriptions":[
+                                                {                                            
+                                                    "Description":"recognise and explore digital systems (hardware and software) for a purpose ",
+                                                    "Code":"AC9TDIFK01",
+                                                    "Elaborations":[
+                                                        "recognising digital systems that they interact with at home and school, for example smartphone, laptop or programmable toy ",
+                                                        "playing with (with guidance) and using different digital systems to explore what they do for a purpose, for example the class speaking to an expert via videoconference",
+                                                        "recording, with permission, audio or video of local community members’ stories to share in class, for example sharing cultural stories of First Nations Australians",
+                                                        "taking photos, with permission, to share with others, for example close-up photos of First Nations Australians’ material culture, such as woven mats or baskets revealing intricate detail",
+                                                        "making a model of a digital system, using it in a role-play scenario and describing its features, for example a cardboard box with a keyboard and screen with app icons"
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "SubStrandName":"Data representation",
+                                            "ContentDescriptions":[
+                                                {                                        
+                                                    "Description":"represent data as objects, pictures and symbols ",
+                                                    "Code":"AC9TDIFK02",
+                                                    "Elaborations":[
+                                                        "drawing a picture representing each of their family members and their interests, for example drawing one family member with a surfboard and another with a skateboard ",
+                                                        "using coloured blocks to represent an attribute of people, for example representing students and their sports houses with different coloured blocks",
+                                                        "using a symbol to represent an idea, but knowing that the symbol is not the data itself, for example the Australian Aboriginal flag represents First Peoples of Australia, the land and the sun",
+                                                        "using a symbol to represent an idea, but knowing that the symbol is not the data itself, for example the symbols and colour on both the Australian Aboriginal flag and the Torres Strait Islander flag "
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "StrandName":"Processes and production skills",
+                                    "SubStrands":[
+                                        {
+                                            "SubStrandName":"Privacy and security",
+                                            "ContentDescriptions":[
+                                                {                                            
+                                                    "Description":"identify some data that is personal and owned by them ",
+                                                    "Code":"AC9TDIFP01",
+                                                    "Elaborations":[
+                                                        "listing things that contain personal and public data, for example photos of themselves with their family (private) and photos of local community sites (public) ",
+                                                        "identifying apps and websites they use where their personal data could be made visible, for example photos of themselves on parents’ or carers’ social media, or their username being shown to others in online games"
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ] 
+                        },
+                        {
+                          "LevelName": "1-2",
+                          "Age": 6,
+                          "Description": "By the end of Year 2 students should have had the opportunity to apply computational thinking by describing algorithms that include sequences of instructions and decisions, and by using digital systems to produce simple solutions. Through practice and investigation, they become more familiar with and confident in representing data in different ways. \nThrough Digital Technologies and Mathematics (Statistics), students begin to recognise patterns in the data they have acquired, such as identifying common and distinctive features after sorting it, and these generalisations help them make predictions, such as how a pattern might continue. \nStudents develop systems thinking by exploring a range of purposes for using digital systems and their components. They have opportunities to experience and develop their skills in using different hardware components, such as a touchpad and keyboard. They use different software to create content such as writing a message that includes an image and sharing it with classmates. Students become aware of design thinking by discussing and observing how the needs of different people are met through using digital systems. They protect the security of their own data on their school account by using their own username and password and, through discussion, develop an awareness that some websites and apps store their personal data online.\nIn Digital Technologies, students should have frequent opportunities for authentic learning by making key connections with other learning areas.",
+                          "DTAchievementStandard": "By the end of Year 2 students show how simple digital solutions meet a need for known users. Students represent and process data in different ways. They follow and describe basic algorithms involving a sequence of steps and branching. With assistance, students access and use digital systems for a purpose. They use the basic features of common digital tools to create, locate and share content, and to collaborate, following agreed behaviours. Students recognise that digital tools may store their personal data online.",
+                          "LAAchievementStandard": "By the end of Year 2 students describe the purpose of familiar products, services and environments, including digital systems. They represent and process data in different ways and follow and describe basic algorithms involving a sequence of steps and branching to show how simple digital solutions meet a need for known users. For each of the 2 prescribed technologies contexts they identify the features and uses of technologies and create designed solutions. Students select design ideas based on their personal preferences. They access and use the basic features of common digital tools to create, locate and share content, and collaborate and communicate design ideas using models and drawings. Students safely produce designed or digital solutions and recognise that digital tools may store their personal data online.",
+                          "Strands": [
+                            {
+                              "StrandName": "Knowledge and understanding",
+                              "SubStrands": [
+                                {
+                                  "SubStrandName": "Digital systems",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "identify and explore digital systems and their components for a purpose ",
+                                      "Code": "AC9TDI2K01",
+                                      "Elaborations": [
+                                        "exploring digital systems to better understand how they are used to provide communities with essential services, for example looking at the systems and components that allow First Nations Australians in communities classified as remote to watch their favourite television shows",
+                                        "naming and using digital systems that they interact with at home and school, for example using a touchpad to move the cursor on a laptop, or the keyboard to type a simple message on a tablet",
+                                        "using different digital systems to explore what they do and how to use them, for example selecting the camera icon allows them to take photos of things that are a familiar shape"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "SubStrandName": "Data representation",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "represent data as pictures, symbols, numbers and words ",
+                                      "Code": "AC9TDI2K02",
+                                      "Elaborations": [
+                                        "exploring digital systems to better understand how they are used to provide communities with essential services, for example looking at the systems and components that allow First Nations Australians in communities classified as remote to watch their favourite television shows",
+                                        "naming and using digital systems that they interact with at home and school, for example using a touchpad to move the cursor on a laptop, or the keyboard to type a simple message on a tablet",
+                                        "using different digital systems to explore what they do and how to use them, for example selecting the camera icon allows them to take photos of things that are a familiar shape"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "StrandName": "Processes and production skills",
+                              "SubStrands": [
+                                {
+                                  "SubStrandName": "Investigating and defining",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "investigate simple problems for known users that can be solved with digital systems ",
+                                      "Code": "AC9TDI2P01",
+                                      "Elaborations": [
+                                        "investigating internet-based translation tools and how similar digital tools could promote the use of First Nations Australians’ languages or assist communications, for example responding to cultural stories of Australian First Nations Peoples",
+                                        "investigating familiar and easily understood problems with few complications or steps needed to solve them, for example deciding what to wear by checking the forecast on a weather app",
+                                        "identifying how digital systems are used to solve problems at school, for example taking attendance or borrowing a library book",
+                                        "exploring how a familiar problem could be solved using a robot, for example creating a model robot using cardboard boxes and explaining how it could be used to clean up the classroom floor at the end of the day"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "SubStrandName": "Generating and designing",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "follow and describe algorithms involving a sequence of steps, branching (decisions) and iteration (repetition) ",
+                                      "Code": "AC9TDI2P02",
+                                      "Elaborations": [
+                                        "following a short, ordered sequence of steps and making decisions to solve a simple problem, for example follow a recipe or directions to reach a location ",
+                                        "describing the steps and decisions (in the correct order) needed to solve a simple problem, for example writing, saying, drawing or photographing the steps needed to make a sandwich ",
+                                        "rearranging into the correct order a series of mixed-up pictures that describe a story, for example stories authored and published by First Nations Australians ",
+                                        "identifying the steps needed to solve a problem, and understanding when their order is important, for example socks must be put on before shoes but a jumper can be put on before or after shoes",
+                                        "identifying the decisions needed to solve a problem and the next steps to follow in each case, for example if it is raining, take a raincoat, otherwise take a hat",
+                                        "following algorithms that repeat a single step a fixed number of times, for example practise spelling a word 5 times or throw and catch a ball with a partner 10 times"
+                                      ]
+                                    }
+                                  ]
+
+                                },
+                                {
+                                  "SubStrandName": "Evaluating",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "discuss how existing digital systems satisfy identified needs for known users ",
+                                      "Code": "AC9TDI2P03",
+                                      "Elaborations": [
+                                        "describing how familiar digital systems meet the needs of individuals, for example how different family members use a tablet for different needs – to play videos, read the news or follow a recipe ",
+                                        "discussing how we use digital systems to store and access information, and how that information helps us learn about our environment, interactions and leisure activities, for example how interactive versions of stories authored and published by First Nations Australians preserve important cultural expressions ",
+                                        "sharing ideas about how digital systems are used at school for learning, for example sharing a student’s work with the class on an interactive display screen to provide class feedback on their writing ",
+                                        "sharing and describing ways that common digital systems can be used to meet communication needs, for example tablets can be used as phones and tools for communication between families living in different locations"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "SubStrandName": "Collaborating and managing",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "use the basic features of common digital tools to create, locate and communicate content ",
+                                      "Code": "AC9TDI2P04",
+                                      "Elaborations": [
+                                        "using familiar digital systems to create content with others, for example using presentation software to retell a story ",
+                                        "taking, storing safely and presenting photos of class work, for example locating photos they took of their work to show to parents or carers or for the teacher to upload to the class shared folder ",
+                                        "finding images of (local) Australian flora and fauna or places for use in a story and including First Nations Australians’ names for the items ",
+                                        "using a camera or drawing app to create a picture, for example making a card for a family member that includes a photo and short message ",
+                                        "creating individual pieces of work that contribute to a group task, for example each student contributes a recipe and photo of their favourite food to create a class recipe book"
+                                      ]
+                                    },
+                                    {
+                                      "Description": "use the basic features of common digital tools to share content and collaborate demonstrating agreed behaviours, guided by trusted adults ",
+                                      "Code": "AC9TDI2P05",
+                                      "Elaborations": [
+                                        "taking and sharing photos of class work with parents or carers using classroom messaging software with teacher guidance",
+                                        "applying agreed standards of behaviour when sharing content with classmates, for example using language that is considered by all students and the teacher to be appropriate when they are writing messages to each other",
+                                        "considering the need for online safety when sharing information, for example recognising that personal information such as a photo can be used inappropriately"
+                                      ]
+                                    }
+
+                                  ]
+                                },
+                                {
+                                  "SubStrandName": "Privacy and security",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "access their school account with a recorded username and password ",
+                                      "Code": "AC9TDI2P06",
+                                      "Elaborations": [
+                                        "using username and password recorded in a private place to access a digital system, for example logging into a school computer using details given on a card by the teacher "
+                                      ]
+                                    },
+                                    {
+                                      "Description": "discuss that some websites and apps store their personal data online ",
+                                      "Code": "AC9TDI2P07",
+                                      "Elaborations": [
+                                        "sharing examples of the data collected by apps and websites they commonly use, for example usernames and email addresses used by school websites and games to log in",
+                                        "discussing the importance of asking permission from a parent or carer before entering personal details online such as address, phone number and date of birth"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                        "LevelName": "3-4",
+                        "Age": 8,
+                        "Description": "By the end of Year 4 students should have had the opportunity to broaden their computational thinking by creating simple digital solutions, individually and in groups, that involve defining problems, and designing and implementing solutions as visual programs. Students practise defining problems using design criteria given to them, and user stories developed by the class. Through practice, students improve the precision of their algorithms and implement them as visual programs. Students expand their understanding of data representation by exploring how and why the same data can be represented in different ways to meet different purposes.  Through Digital Technologies and Mathematics (Statistics), students use digital systems to acquire and process data for comparison and interpretation purposes. Students progress in their systems thinking by considering the connections between digital systems and peripherals to meet specific purposes, such as using a headset to participate in an online class discussion. They explore how digital systems interact by transmitting data, such as using a class laptop to stream videos from an online news service.  Students apply design thinking techniques to generate multiple ideas for the design of their solutions. They compare their ideas with other ideas, such as those of their classmates. They determine the success of their implemented solutions against given design criteria and co-created user stories. They also judge how well digital systems used by the public meet their needs, such as maps or transport apps to plan a trip. Through frequent practice when completing tasks and projects, students increase their confidence and fluency in using core features of common digital tools to create content individually, and when working in groups they apply agreed behaviours. Students secure their personal data by creating passwords that are hard to guess and begin to understand the risks associated with storing and sharing personal data online. They learn about the importance of protecting private data and consider the positive actions and behaviours they display when engaging with others online.  In Digital Technologies, students should have frequent opportunities for authentic learning by making key connections with other learning areas. ",
+                        "DTAchievementStandard": "By the end of Year 4 students describe how people design products, services and environments to meet the needs of people, including sustainability. They process and represent data for different purposes, follow and describe simple algorithms involving branching and iteration, and implement them as visual programs. For each of the 2 prescribed technologies contexts they describe the features and uses of technologies and create designed solutions. Students select design ideas against design criteria. Students securely access and use digital systems and their peripherals for a range of purposes, including transmitting data. They communicate design ideas using models and drawings including annotations and symbols. Students plan and sequence steps and use technologies and techniques to safely produce designed solutions. They use the core features of common digital tools to plan, create, locate and share content, and to collaborate, following agreed behaviours. Students identify their personal data stored online and its risks.",
+                        "LAAchievementStandard": "By the end of Year 4 students create simple digital solutions and use provided design criteria to check if solutions meet user needs. Students process and represent data for different purposes. They follow and describe simple algorithms involving branching and iteration and implement them as visual programs. Students securely access and use digital systems and their peripherals for a range of purposes, including transmitting data. They use the core features of common digital tools to plan, create, locate and share content, and to collaborate, following agreed behaviours. Students identify their personal data stored online and recognise the risks.",
+                        "Strands": [
+                          {
+                            "StrandName": "Knowledge and understanding",
+                            "SubStrands": [
+                              {
+                                "SubStrandName": "Digital systems",
+                                "ContentDescriptions": [
+                                  {
+                                    "Description": "explore and describe a range of digital systems and their peripherals for a variety of purposes",
+                                    "Code": "AC9TDI4K01",
+                                    "Elaborations": [
+                                      "experimenting with a range of peripherals to perform input, output and storage, for example a keyboard, touch screen, mouse, camera and microphone; a monitor, projector, printer or 3D printer; or speaker; or USB drive",
+                                      "adding peripherals to a digital system to expand its functionality, for example connecting a headset to a digital system to participate in an online lesson more effectively",
+                                      "exploring how they can use digital systems differently depending on the task, recognising that many digital systems can perform multiple tasks, for example a student can use a tablet to take photos, record audio and find information to create a presentation"
+                                    ]
+                                  },
+                                  {
+                                    "Description": "explore transmitting different types of data between digital systems",
+                                    "Code": "AC9TDI4K02",
+                                    "Elaborations": [
+                                      "exploring examples of different types of data that can be transferred between digital systems, for example streaming music or making a video call to a friend using a smartphone",
+                                      "exploring how data (video call) can be transmitted from a remote community to a city location, for example looking at how many First Nations Australian communities in areas classified as remote rely on 3G network coverage, limiting the use of video calls"
+                                    ]
+                                  }
+
+                                ]
+                              },
+                              {
+                                "SubStrandName": "Data representation",
+                                "ContentDescriptions": [
+                                  {
+                                    "Description": "recognise different types of data and explore how the same data can be represented differently depending on the purpose",
+                                    "Code": "AC9TDI4K03",
+                                    "Elaborations": [
+                                      "describing different types of data and how they can be used, for example numbers, letters, symbols and pictures",
+                                      "explaining how the same data can be represented in different ways and why some representations are better than others in certain contexts, for example four vs 4 vs IV vs I I I I vs quatre and that numerals are better for calculation than words",
+                                      "explaining that the same information can be represented differently, for example the term ‘stop’ can also be represented with an octagon-shaped red sign or a hand icon",
+                                      "identifying rock paintings and other cultural expressions to understand that images are used to encode and represent ethnobotanical knowledge, for example the representation of plant use in the Kimberley cave paintings and ancient engravings including important data on medicinal and food plant classification and their usable parts"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "StrandName": "Processes and production skills",
+                            "SubStrands": [
+                              {
+                                "SubStrandName": "Investigating and defining",
+                                "ContentDescriptions": [
+                                  {
+                                    "Description": "define problems with given design criteria and by co-creating user stories",
+                                    "Code": "AC9TDI4P01",
+                                    "Elaborations": [
+                                      "recognising a range of familiar problems and defining achievable solutions using given design criteria, for example buying presents for family members within a specified budget",
+                                      "using responses to guiding questions to write a user story, for example a family member wants a way of entertaining their puppy when they are at school to stop it digging holes",
+                                      "co-creating a user story using a template such as ‘A <type of user> has <some goal> so that <some reason>’, for example ‘a sports team wants to access league rankings online so that they can see their progress’",
+                                      "developing a problem statement for collecting and managing information, for example how First Nations Australians rangers could monitor animal populations, such as local marine turtles, using global positioning systems (GPS)",
+                                      "co-creating user stories about exploring hard-to-reach locations, for example a school student wants to explore neighbouring countries classified as remote to compare how people live"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "SubStrandName": "Generating and designing",
+                                "ContentDescriptions": [
+                                  {
+                                    "Description": "follow and describe algorithms involving sequencing, comparison operators (branching) and iteration",
+                                    "Code": "AC9TDI4P02",
+                                    "Elaborations": [
+                                      "following the steps and decisions of algorithms and knowing what step they are up to, for example following rules to form the past tense of regular verbs such as ‘create’ to ‘created’, ‘try’ to ‘tried’ and ‘cook’ to ‘cooked’ and checking off items on a list as they are completed",
+                                      "describing algorithms using representations such as a list of steps or a diagram, for example drawing a diagram of a recipe involving decisions",
+                                      "understanding there can be more than one sequence of steps to solve a problem, some are better than others, and the steps should be unambiguous, for example describing 2 different ways to get to the same location",
+                                      "describing the decisions needed to solve a problem, including numerical and text comparisons, for example if the UV index is above 3, put on sunscreen and a hat",
+                                      "describing algorithms that repeat steps a fixed number of times, for example calculating multiplication using repeated addition, where the sum changes in each iteration"
+                                    ]
+                                  },
+                                  {
+                                    "Description": "generate, communicate and compare designs",
+                                    "Code": "AC9TDI4P03",
+                                    "Elaborations": [
+                                      "brainstorming possible design ideas and discussing these with their peers, for example sketching different ideas for a computer game",
+                                      "discussing whether the needs identified from the user story are met by generated design ideas, for example comparing design ideas in pairs for encouraging people to recycle",
+                                      "ideating multiple design ideas and comparing them against user stories, for example as a class, discussing the needs identified from the user story and brainstorming multiple design ideas (accepting all suggestions as possibilities)"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "SubStrandName": "Producing and implementing",
+                                "ContentDescriptions": [
+                                  {
+                                    "Description": "implement simple algorithms as visual programs involving control structures and input",
+                                    "Code": "AC9TDI4P04",
+                                    "Elaborations": [
+                                      "writing and editing programs to solve simple problems using branching and simple iteration in a visual programming environment, for example helping a user understand multiplication by displaying the repeated addition in order",
+                                      "writing programs that take input from the user or environment, for example asking the user for their name and displaying it or sensing the temperature from the environment to make a decision",
+                                      "writing programs that make decisions involving comparison, for example comparing whether the temperature is above 25 degrees Celsius to label the weather hot or cold",
+                                      "writing programs that repeat one or more steps a fixed number of times, for example writing a program that displays repetitive song lyrics, such as in ‘Ten in the bed’",
+                                      "running and testing a program to check it performs as expected, for example a character: 1. moves forward 2. turns left 3. moves forward",
+                                      "implementing a program that demonstrates the strict routines and techniques followed by First Nations Australian ranger groups when caring for or handling specific native animals, for example using IF and THEN statements to create a training manual, such as: IF <insert animal name> is injured THEN the ranger will <insert action>"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "SubStrandName": "Evaluating",
+                                "ContentDescriptions": [
+                                  {
+                                    "Description": "discuss how existing and student solutions satisfy the design criteria and user stories",
+                                    "Code": "AC9TDI4P05",
+                                    "Elaborations": [
+                                      "describing the way familiar digital systems allow the user to perform tasks, for example discussing how a family member could place an order online for something they cannot buy locally",
+                                      "discussing how a digital solution meets the different needs of users, for example how maps help people to locate places in the community or interactive store directories help shoppers to find a particular store in a shopping centre",
+                                      "making judgements on their digital solutions against the design criteria and user stories, for example how high their friends score in the game they created to help them learn what is recyclable",
+                                      "reflecting on how the systems in the school help it run, for example how the librarian keeps track of books borrowed"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "SubStrandName": "Collaborating and managing",
+                                "ContentDescriptions": [
+                                  {
+                                    "Description": "use the core features of common digital tools to create, locate and communicate content, following agreed conventions",
+                                    "Code": "AC9TDI4P06 ",
+                                    "Elaborations": [
+                                      "discussing and creating as a class a set of steps they need to follow to safely find information online",
+                                      "using an online search engine to find suitable sources to create and communicate information, following agreed steps, for example creating a presentation on life cycles",
+                                      "grouping, naming and itemising objects using a logical hierarchy, for example creating a section of a virtual library or virtual supermarket using folders and files"
+                                    ]
+                                  },
+                                  {
+                                    "Description": "use the core features of common digital tools to share content, plan tasks, and collaborate, following agreed behaviours, supported by trusted adults",
+                                    "Code": "AC9TDI4P07",
+                                    "Elaborations": [
+                                      "using an agreed folder to make it easy for students to collaborate on shared content in a group project",
+                                      "demonstrating safe sharing of content with a select audience, for example sharing a holiday adventure without revealing exact dates, specific names or other personal information",
+                                      "listening to others when participating in online environments to share content, for example respecting the rights of others by taking turns to suggest and add words or images to a factual slide deck to share with the teacher",
+                                      "interacting cooperatively in a group in an online environment to plan and complete a task, for example writing and responding to others’ views on canteen products",
+                                      "using digital tools to plan an event as a class, for example jointly creating a class survey to help plan an end-of-year party, where responses conform to the class's accepted behavioural expectations"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "SubStrandName": "Privacy and security",
+                                "ContentDescriptions": [
+                                  {
+                                    "Description": "access their school account using a memorised password and explain why it should be easy to remember, but hard for others to guess",
+                                    "Code": "AC9TDI4P08",
+                                    "Elaborations": [
+                                      "recalling their school username and password from memory to login to a school laptop or desktop",
+                                      "explaining how keeping a password secret prevents others from accessing their data, for example how their work is saved in their account and can only be accessed using their secret password",
+                                      "exploring techniques to create an easy to remember and hard to guess password, for example creating a password using 3 unrelated but easy to remember words"
+                                    ]
+                                  },
+                                  {
+                                    "Description": "identify what personal data is stored and shared in their online accounts and discuss any associated risks",
+                                    "Code": "AC9TDI4P09",
+                                    "Elaborations": [
+                                      "identifying the personal data stored in accounts they use at school and at home and who has access to it, for example documents in their school cloud storage are accessible by the teacher, or their nickname in their online gaming accounts is visible to all players",
+                                      "discussing how personal data stored in online accounts forms a person’s digital identity and can reveal detailed information about people, for example looking at photographs of themselves, friends or fictional characters that reveal details about a person's location, habits or home"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                        {
+                          "LevelName": "5-6",
+                          "Age": 10,
+                          "Description": "By the end of Year 6 students should have had the opportunity to apply computational thinking by creating digital solutions that involve defining problems, designing and modifying algorithms, and implementing them as visual programs. Students practise different strategies to develop their abstract thinking, such as thinking out aloud to simplify problems, which is needed when defining them. They represent algorithms involving branching and iteration and implement them as visual programs that include variables and respond to input. Students think in a more abstract way, exploring how on and off states and whole numbers can be used to represent data.\nThey use design thinking techniques to generate multiple ideas about the design of solutions and how people interact with them. Based on given or co-developed design criteria and student-generated user stories, they select, and where appropriate modify, their preferred design ideas for further development. They extend the use of design criteria by evaluating their own and existing solutions, considering the impact of these solutions on their community. Through Digital Technologies and Mathematics (Statistics), students develop confidence and competencies in using digital systems to create displays of data, such as visualisations, which assist in interpreting data sets.\nStudents apply systems thinking when investigating the functions and purpose of each component in a digital system and their interactions with others. They examine how data is broken up and sent through networks. Through frequent practice when completing tasks and projects, students develop competence and confidence in creating content that applies agreed conventions, such as heading hierarchies and labelling of charts, and they use a consistent file-naming system. When working in groups, students explore different ways of working collaboratively, such as agreeing on how tasks should be allocated and content shared. Students protect data stored in their personal accounts by creating separate passphrases for each account and explain how their personal data forms their permanent digital footprint.\nIn Digital Technologies, students should have frequent opportunities for authentic learning by making key connections with other learning areas.",
+                          "DTAchievementStandard": "By the end of Year 6 students develop and modify digital solutions, and define problems and evaluate solutions using user stories and design criteria. They process data and show how digital systems represent data. Students design algorithms involving complex branching and iteration and implement them as visual programs including variables. They securely access and use multiple digital systems and describe their components and how they interact to process and transmit data. Students select and use appropriate digital tools effectively to plan, create, locate and share content, and to collaborate, applying agreed conventions and behaviours. They identify their digital footprint and recognise its permanence.",
+                          "LAAchievementStandard": "By the end of Year 6 students explain how people design products, services and environments to meet the needs of communities, including sustainability. For each of the 3 prescribed technologies contexts students explain how the features of technologies impact on design decisions and they create designed solutions. They process data and show how digital systems represent data, design algorithms involving complex branching and iteration, and implement them as visual programs including variables. They select and justify design ideas and solutions against design criteria. Students share and communicate ideas or content to an audience using technical terms, graphical representation techniques and appropriate digital tools. They develop project plans, including production processes, and select technologies and techniques to safely produce designed or digital solutions. Students securely access and use multiple digital systems and describe their components and how they interact to process and transmit data. They identify their digital footprint and recognise its permanence.",
+                          "Strands": [
+                            {
+                              "StrandName": "Knowledge and understanding",
+                              "SubStrands": [
+                                {
+                                  "SubStrandName": "Digital systems",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "investigate the main internal components of common digital systems and their function ",
+                                      "Code": "AC9TDI6K01",
+                                      "Elaborations": [
+                                        "explaining how digital systems are made up of parts that perform specific functions, for example the processor controls the tablet, performs calculations and manipulates data",
+                                        "exploring how the central processing unit (CPU), memory and input/output components work together to perform a simple calculation",
+                                        "investigating the main components in a video conferencing system and their functions, for example a telehealth system used to access ultrasound and other imagery services by communities in areas classified as remote such as those of some First Nations Australians"
+
+                                      ]
+                                    },
+                                    {
+                                      "Description": "examine how digital systems form networks to transmit data ",
+                                      "Code": "AC9TDI6K02",
+                                      "Elaborations": [
+                                        "explaining how separate systems can be connected in different ways to exchange data, for example how a laptop can be connected to a network via a cable or radio waves",
+                                        "describing the way data is structured and transmitted through a network, for example broken up into packets (small pieces) and passed from the source, through multiple devices, to the destination",
+                                        "investigating the use of satellite phones where mobile phone networks are not available, inaccessible or unreliable, for example many homeland communities of Arnhem Land have limited access to mainstream communication networks"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "SubStrandName": "Data representation",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "explain how digital systems represent all data using numbers",
+                                      "Code": "AC9TDI6K03",
+                                      "Elaborations": [
+                                        "representing data using whole numbers and recognising this is how digital systems represent data, for example converting letters in a message to numbers using their position in the alphabet",
+                                        "explaining how the data type used to represent data changes the operations that can be performed on it, for example adding numbers performs addition whereas adding strings joins them "
+                                      ]
+                                    },
+                                    {
+                                      "Description": "explore how data can be represented by off and on states (zeros and ones in binary)",
+                                      "Code": "AC9TDI6K04",
+                                      "Elaborations": [
+                                        "using provided stimulus to identify an issue and writing a user story in groups, for example using a newspaper article to develop a user story, such as: a family in a bushfire or flood-prone environment needs a way to ensure they are prepared in case of an emergency ",
+                                        "demonstrating that an on/off state in a circuit can represent the digits one and zero, and this is how digital systems represent data ",
+                                        "recognising how the answer to a yes/no question can be represented using on/off states, for example switching a light on or off in a circuit or a long or short dash (beep) in Morse code "
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "StrandName": "Processes and production skills",
+                              "SubStrands": [
+                                {
+                                  "SubStrandName": "Investigating and defining",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "define problems with given or co developed design criteria and by creating user stories ",
+                                      "Code": "AC9TDI6P01",
+                                      "Elaborations": [
+                                        "using provided stimulus to identify an issue and writing a user story in groups, for example using a newspaper article to develop a user story, such as: a family in a bushfire or flood-prone environment needs a way to ensure they are prepared in case of an emergency ",
+                                        "discussing possible design criteria based on a stimulus, for example the cost, sustainability and timeliness for a roadside bushfire or flood risk rating system",
+                                        "investigating the impact that feral animals have on native flora and fauna and how this problem has led to economic development opportunities for groups such as the Arnhem Land Progress Aboriginal Corporation "
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "SubStrandName": "Generating and designing",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "design algorithms involving multiple alternatives (branching) and iteration ",
+                                      "Code": "AC9TDI6P02",
+                                      "Elaborations": [
+                                        "designing an algorithm or understanding and modifying an existing algorithm to fix an error or change functionality, for example exploring issues in drought-prone areas to decide when to water a garden, taking into account humidity as well as soil moisture level ",
+                                        "creating the steps, decisions and loops in algorithms and knowing what step they are up to, for example repeating the steps to add 2 digits for each column in multi-digit addition, knowing which column they are adding and when to stop ",
+                                        "constructing more than one sequence of steps that solve the same problem and explaining why one is better than the other, for example specifying the exact route through a maze versus using the right-hand rule that works for all mazes"
+                                      ]
+                                    },
+                                    {
+                                      "Description": "design a user interface for a digital system  ",
+                                      "Code": "AC9TDI6P03",
+                                      "Elaborations": [
+                                        "designing a user interface on paper or using digital tools, for example drawing the designed layout of the landing page of an app to order lunches from the school canteen  ",
+                                        "designing a user interface to address an identified need, for example including customisable font size and colour contrast to help users who are visually impaired",
+                                        "designing an algorithm including branching and iteration which responds to data, for example how First Nations Australian rangers use structured procedures to respond to live tracking data that indicates feral buffalo are approaching an environmentally or culturally significant site"
+                                      ]
+                                    },
+                                    {
+                                      "Description": "generate, modify, communicate and evaluate designs ",
+                                      "Code": "AC9TDI6P04",
+                                      "Elaborations": [
+                                        "ideating a range of possible design ideas, discussing them and judging them against the design criteria and user stories, for example using the design criteria to put design ideas in order of preference in a group discussion",
+                                        "suggesting modifications to the preferred design idea if it does not satisfy all design criteria and user stories, for example modifying a game or game controller so that it can be used by a wider range of players"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "SubStrandName": "Producing and implementing",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "implement algorithms as visual programs involving control structures, variables and input ",
+                                      "Code": "AC9TDI6P05",
+                                      "Elaborations": [
+                                        "writing and editing programs to solve problems using branching, iteration and variables in a visual programming environment, for example writing a program to draw a rotated shape a given number of times using Turtle Graphics ",
+                                        "writing programs that take input from the user or environment and storing that input in a variable for later use, for example asking the user how many shapes to draw in a circle and using that to calculate the number of iterations and angle to rotate each time",
+                                        "writing programs that make decisions involving multiple alternatives, for example an interactive quiz that checks if the answer is correct, gives feedback and updates the score, or gives a final grade based on the score",
+                                        "writing programs that repeat multiple steps based on the user’s input, for example repeatedly drawing a shape a given number of times, shifting the position between each iteration",
+                                        "stating the expected behaviour of a program, running the program to check it is correct and fixing any errors, for example ‘when I press the left arrow key, the cat should move left, finding the cat moves right, and fixing it by changing the 10 to -10 to alter the direction’",
+                                        "programming digital systems to perform automated tasks, such as closing gates, for example simulating the work of First Nations Australian rangers attempting to lure and capture feral animals"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "SubStrandName": "Evaluating",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "evaluate existing and student solutions against the design criteria and user stories and their broader community impact ",
+                                      "Code": "AC9TDI6P06",
+                                      "Elaborations": [
+                                        "evaluating the effectiveness of their own solutions to address the identified problem from the user stories, for example checking if the information created for the local interactive history walk is relevant and meets the council’s needs ",
+                                        "evaluating how an existing solution provides users with safety tools and features such as those described in the Safety by Design Vision for Young People, for example having a clearly visible button to easily report and block inappropriate behaviour in an app or on a website ",
+                                        "reflecting on the many systems that are used in the wider community to address a range of problems, for example timetables to manage transport and other services through to details such as storing licence information so that police can enforce road rules"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "SubStrandName": "Collaborating and managing",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "select and use appropriate digital tools effectively to create, locate and communicate content, applying common conventions ",
+                                      "Code": "AC9TDI6P07",
+                                      "Elaborations": [
+                                        "creating achievable steps and timeframes and identifying digital tools needed to produce a solution to a given problem, for example planning what they need to do to create a report on the effectiveness of the school’s recycling initiatives ",
+                                        "locating content through search engines and in documents by revising queries and using required search terms, for example reviewing search results and modifying search terms to make the query more accurate",
+                                        "creating appropriate content that reflects planning as well as new external factors, for example uploading a draft of a report on a local government issue to the teacher for feedback as part of an iterative process ",
+                                        "creating content for a school celebration, for example designing a collaborative spreadsheet that can be used by a small group to plan and cost their graduation party, together with a folder of tagged resources which support the planning "
+                                      ]
+                                    },
+                                    {
+                                      "Description": "select and use appropriate digital tools effectively to share content online, plan tasks and collaborate on projects, demonstrating agreed behaviours ",
+                                      "Code": "AC9TDI6P08",
+                                      "Elaborations": [
+                                        "following a previously created plan to report back to the class on a given problem, using digital tools, for example small groups reporting on the best location for a new skate park in the local government area",
+                                        "defining and acting collectively using online community standards and valuing the work of others, for example moderating language and behaviour in an online class forum, not deleting the work of collaborators, and respecting others’ intellectual property",
+                                        "naming, organising and storing files in a way that allows for easy retrieval of shared content, for example labelling the main folders by topic, such as ‘school garden project’, and then creating subfolders for each section of the project, such as ‘plans’, ‘designs’ and ‘implementation’",
+                                        "demonstrating agreed behaviours; following cultural protocols, including relevant permissions and attributions; acknowledging diversity, capability and strength; and addressing risks and responsibilities such as privacy, security, and accuracy of data; for example when sharing images of First Nations Australians’ cultural artefacts",
+                                        "using a range of communication tools to share ideas and information with stakeholders, for example presenting content for a school celebration such as a graduation celebration with the parents and citizens association or school executive in an online forum"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "SubStrandName": "Privacy and security",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "access multiple personal accounts using unique passphrases and explain the risks of password re-use ",
+                                      "Code": "AC9TDI6P09",
+                                      "Elaborations": [
+                                        "using multiple accounts, each with different passphrases, to access each website or app used for school and home, for example having a different username and password combination for school, gaming and music accounts",
+                                        "explaining why re-using a password is risky when one of them is found out, for example how a compromised password from one social media account might be able to be used to access their bank or school account if the password is the same and other details are also compromised"
+                                      ]
+                                    },
+                                    {
+                                      "Description": "explain the creation and permanence of their digital footprint and consider privacy when collecting user data ",
+                                      "Code": "AC9TDI6P10",
+                                      "Elaborations": [
+                                        "explaining why re-using a password is risky when one of them is found out, for example how a compromised password from one social media account might be able to be used to access their bank or school account if the password is the same and other details are also compromisedexplaining why collecting the smallest amount of data needed for a purpose is important to protect someone’s privacy, for example how choosing not to collect information about someone’s birthdate when it is not necessary ensures that private data cannot be stolen in a cyber attack"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "LevelName": "7-8",
+                          "Age": 12,
+                          "Description": "By the end of Year 8 students should have had the opportunity to apply computational thinking by defining and decomposing real-world problems, creating user experiences, designing and modifying algorithms, and implementing them in a general-purpose programming language. This involves students practising problem decomposition, using approaches such as divide and conquer to more clearly understand a problem by describing its component parts. Students represent and communicate their algorithmic solutions using flowcharts and pseudocode. Students check their solutions meet the specifications by testing and debugging their algorithms before and during implementation. They develop a deeper understanding of abstraction by explaining how and why digital systems represent data as whole numbers, which are then represented in binary. Students build on their skills from Mathematics (Statistics) in acquiring and interpreting data. In Digital Technologies, students continue to advance these skills and are also given opportunities to validate the data they acquire to ensure it is accurate and consistent. They collect and transform many types of data from a wide range of sources. Students model structured data in meaningful ways using spreadsheets and single-table databases, and analyse and visualise the data to extract meaning from it. They apply design thinking by using divergent techniques, such as mind mapping, role-play and using graphic organisers, to generate design ideas for user experiences and solution designs. Students review these ideas against design criteria and created user stories throughout their implementation as general-purpose programming by assessing them against current and future needs. They extend the use of these design criteria and user stories to evaluate the future impact of existing solutions. Students apply systems thinking by exploring the connections between hardware capabilities and tasks users want to perform. They investigate how data is transmitted via wired and wireless networks and explain the need for encryption to protect and secure data. Students use an increasing range of the features of digital tools to improve their efficiency and the consistency of the content they create, locate and communicate. They plan and manage projects individually and collaboratively, improving their control over the quality of their content. Students investigate personal security controls, including multi-factor authentication, to protect their data if passwords are compromised, and they understand the impact of phishing and other cyber security threats on people and data.  In Digital Technologies, students should have frequent opportunities for authentic learning by making key connections with other learning areas.   ",
+                          "DTAchievementStandard": "By the end of Year 8 students develop and modify creative digital solutions, decompose real-world problems, and evaluate alternative solutions against user stories and design criteria. Students acquire, interpret and model data with spreadsheets and represent data with integers and binary. They design and trace algorithms and implement them in a general-purpose programming language. Students select appropriate hardware for particular tasks, explain how data is transmitted and secured in networks, and identify cyber security threats. They select and use a range of digital tools efficiently and responsibly to create, locate and share content; and to plan, collaborate on and manage projects. Students manage their digital footprint.",
+                          "LAAchievementStandard": "By the end of Year 8 students explain how people design, innovate and produce products, services and environments for preferred futures. For each of the 4 prescribed technologies contexts students explain how the features of technologies impact on design decisions, and create designed solutions based on analysis of needs or opportunities. They acquire, interpret and model with spreadsheets and represent data with integers and binary. Students design and trace algorithms; and implement them in a general-purpose programming language. Students create and adapt design ideas, processes and solutions, and justify their decisions against developed design criteria that include sustainability. They communicate design ideas and solutions to audiences using technical terms and graphical representation techniques, including using digital tools. They select appropriate hardware for particular tasks, explain how data is transmitted and secured in networks, and identify cyber security threats. They use a range of digital tools to individually and collaboratively document and manage production processes to safely and responsibly produce designed or digital solutions for the intended purpose. Students manage their digital footprint.",
+                          "Strands": [
+                            {
+                              "StrandName": "Knowledge and understanding",
+                              "SubStrands": [
+                                {
+                                  "SubStrandName": "Digital systems",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "explain how hardware specifications affect performance and select appropriate hardware for particular tasks and workloads",
+                                      "Code": "AC9TDI8K01",
+                                      "Elaborations": [
+                                        "explaining how hardware specifications affect what, and how quickly, a digital system can perform tasks, for example how different bandwidth networks affect download speed and lag or how much random access memory (RAM) is needed for multimedia authoring",
+                                        "selecting appropriate hardware for particular tasks, for example choosing a powerful graphics card for computer gaming or large external storage for video editing",
+                                        "considering how First Nations Australian communities in areas classified as remote often share access to smartphone and internet services, and how the hardware specifications of these devices affect performance, for example where immediate and extended families share and access data through a single smartphone or device"
+                                      ]
+                                    },
+                                    {
+                                      "Description": "investigate how data is transmitted and secured in wired and wireless networks including the internet",
+                                      "Code": "AC9TDI8K02",
+                                      "Elaborations": [
+                                        "describing physical networks and comparing their properties, for example the bandwidth, latency and reliability of wired versus wireless networks",
+                                        "explaining why cryptography is necessary for securing data, for example transmitting credit card details over the internet",
+                                        "exploring simple encryption and decryption algorithms, for example ROT13 and XOR",
+                                        "explaining how problems occur in network communication and how they can be solved, for example routers can drop packets and how Transmission Control Protocol (TCP) uses acknowledgements to confirm packets have been received"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "SubStrandName": "Data representation",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "investigate how digital systems represent text, image and audio data using integers",
+                                      "Code": "AC9TDI8K03",
+                                      "Elaborations": [
+                                        "explaining how digital systems represent text as a sequence of individual characters numbered using the Unicode character set, for example upper-case and lower-case letters, punctuation and emoji ",
+                                        "explaining how digital systems represent audio using whole numbers for the amplitude of the soundwave at a given sampling rate, for example -32,768 to 32,767 for 16-bit audio at 44,100 Hz ",
+                                        "explaining how digital systems represent bitmap images (for example PNG and JPEG) as the colour of each pixel in separate red, green and blue (RGB) channels ranging from 0 to 255, and represent vector graphics, for example Scalable Vector Graphics (SVG) using the geometry of lines and shapes",
+                                        "investigating how a digital system converts audio data to integers as it records, stores and outputs sound, for example using the Welcome to Country app to understand the local history and Traditional Owners of the lands which students learn on to inform the programming of an Acknowledgement of Country in a local First Nations Australian language "
+                                      ]
+                                    },
+                                    {
+                                      "Description": "explain how and why digital systems represent integers in binary",
+                                      "Code": "AC9TDI8K04",
+                                      "Elaborations": [
+                                        "texplaining how whole numbers can be represented in binary, for example counting in binary from 0 to 31, and recognising that one byte = 8 bits, which can represent from 0 to 255",
+                                        "explaining how digital systems represent data in binary, for example by converting a character to its Unicode value, then converting that value into binary",
+                                        "texplaining how circuits can perform binary operations represented as on/off states, for example showing how circuits with 2 switches can represent AND or OR gates"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "StrandName": "Processes and production skills",
+                              "SubStrands": [
+                                {
+                                  "SubStrandName": "Acquiring, managing and analysing data",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "AC9TDI8P01",
+                                      "Code": "acquire, store and validate data from a range of sources using software, including spreadsheets and databases",
+                                      "Elaborations": [
+                                        "tacquiring data to answer questions for their own investigations, for example answering 'Does the canteen sell the right food?' by designing a survey to collect food preferences data and accessing canteen sales data ",
+                                        "judging how meaningful data is to a question, its correctness and how up to date the data is, for example 'Does age affect the chance of cyclist injury?', 'Are self-reported accidents reliable?' and 'Is the data before cycleways existed relevant?' ",
+                                        "storing acquired data using specialised and general software appropriate for how it will be accessed and manipulated, for example a spreadsheet for visualisation or a pre-defined database for filtering and queries",
+                                        "acquiring, storing and validating data from a reputable source, such as the Australian Bureau of Statistics, to analyse the geographic distribution of First Nations Australians, with the aim to highlight past and emerging trends "
+                                      ]
+                                    },
+                                    {
+                                      "Description": "analyse and visualise data using a range of software, including spreadsheets and databases, to draw conclusions and make predictions by identifying trends",
+                                      "Code": "AC9TDI8P02",
+                                      "Elaborations": [
+                                        "summarising data based on its attributes to identify trends and make predictions, for example sorting crime data by type of offence, showing that burglaries have decreased over time to predict fewer burglaries will happen next year",
+                                        "visualising multidimensional data by choosing appropriate graphs, for example a scatter plot of food prices and sales, coloured by each food’s sugar content, or diagrams such as a social network diagram and maps of crime rates by location to reveal trends, outliers or other information"
+                                      ]
+                                    },
+                                    {
+                                      "Description": "model and query the attributes of objects and events using structured data",
+                                      "Code": "AC9TDI8P03",
+                                      "Elaborations": [
+                                        "modelling objects and events as structured data, that is, the attributes relevant to the task, for example products in the canteen and the sale of those products, with attributes such as the product name, price, quantity and nutritional value",
+                                        "using a spreadsheet table to model objects and events, including choosing appropriate formats for each column, and filtering and sorting rows to answer questions",
+                                        "interpreting and querying single-table databases using visual or simple SQL queries with SELECT, WHERE and ORDER BY clauses, for example answering queries in a database for a historical event"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "SubStrandName": "Investigating and defining",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "define and decompose real-world problems with design criteria and by creating user stories",
+                                      "Code": "AC9TDI8P04",
+                                      "Elaborations": [
+                                        "framing a problem in terms of what we know, why it is important and the outcome we want, for example matching the items in your fridge to possible recipes to reduce food waste ",
+                                        "asking a series of questions and sub-questions to understand the problem and breaking it down into manageable parts, for example 'How do we keep track of what items are in the pantry? Are there any dietary requirements that need to be considered?”",
+                                        "using a template such as 'As a <type of user>, I want <some goal> so that <some reason>', for example 'As a user with a visual impairment I want to be able to get the news on my smartphone so that I can keep up with my world”",
+                                        "making predictions about future population distribution of First Nations Australians based on identified trends, for example analysing and visualising data using spreadsheets and databases on their population growth in metropolitan areas"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "SubStrandName": "Generating and designing",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "design algorithms involving nested control structures and represent them using flowcharts and pseudocode",
+                                      "Code": "AC9TDI8P05",
+                                      "Elaborations": [
+                                        "designing an algorithm or modifying an existing algorithm to fix an error or change functionality, for example calculating the coins and notes needed for an amount of money and changing the algorithm to handle new denominations",
+                                        "describing algorithms precisely in pseudocode (structured English) or with flowcharts for each part of the problem, for example using separate flowcharts to describe the purchase of an item and the giving of change during the purchase",
+                                        "describing algorithms with nested control structures, including a nested if, for example IF it is raining THEN [IF parents are home THEN drive to school]; or an IF inside a loop, for example REPEAT [select the largest coin smaller than the remaining total, and subtract it] UNTIL the remainder is zero"
+                                      ]
+                                    },
+                                    {
+                                      "Description": "trace algorithms to predict output for a given input and to identify errors",
+                                      "Code": "AC9TDI8P06",
+                                      "Elaborations": [
+                                        "following an algorithm precisely to confirm it produces the expected output for the given input, for example desk check with a table of input, variables and output",
+                                        "specifying test cases and comparing the expected and actual output to determine the correctness of an algorithm, for example a test case of the change-calculating algorithm could have input $1.45 and expected output 1 x $1, 2 x 20c and 1 x 5c coins",
+                                        "following instructions for making woven baskets or nets by hand, as done by First Nations Australians, and making predictions of how the instructions would need to be modified to enable the item to be produced through automated manufacturing processes"
+                                      ]
+                                    },
+                                    {
+                                      "Description": "design the user experience of a digital system",
+                                      "Code": "AC9TDI8P07",
+                                      "Elaborations": [
+                                        "designing a user interface or experience to satisfy design criteria and user stories, using digital tools, for example sketch multiple pages of a website with wireframes, storyboards and simple branding guidelines for colours and styling",
+                                        "considering the factors of why a user might buy and use a product, in addition to its utility, for example how aligning the brand with the user’s values and identity contributes to its appeal",
+                                        "exploring the evolution of a user interface, for example comparing the design and branding of different search engines over time"
+                                      ]
+                                    },
+                                    {
+                                      "Description": "generate, modify, communicate and evaluate alternative designs",
+                                      "Code": "AC9TDI8P08",
+                                      "Elaborations": [
+                                        "reviewing and modifying a preferred design as part of the iterative development approach, for example making changes to overcome limitations of the design or better satisfy the user stories",
+                                        "using concept maps, wireframes or other diagrams to record and discuss the generated ideas, for example creating and discussing wireframes of a music streaming service, evaluating it against design criteria and user stories, such as the needs of diverse users"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "SubStrandName": "Producing and implementing",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "implement, modify and debug programs involving control structures and functions in a general-purpose programming language",
+                                      "Code": "AC9TDI8P09",
+                                      "Elaborations": [
+                                        "writing and editing programs to solve problems using branching, iteration, variables and functions in a general-purpose programming language, such as Python, JavaScript or C# ",
+                                        "reading and interpreting an existing program and modifying the code to change functionality and fix errors, for example taking existing code for a weather forecasting app that includes temperatures and improving the output to include extra information such as rainfall, UV levels and air quality ",
+                                        "writing a program that receives data from the environment to change the program behaviour, for example reading moisture level data from a soil sensor and switching on the watering system  ",
+                                        "writing a program that contains nested control structures to perform more complicated branching and decisions, for example using an IF statement inside a loop to count the warm days from an array containing temperature data only when the temperature for each day is more than 20 degrees Celsius",
+                                        "defining and using a function that produces different output based on the argument(s) it receives, for example a function that receives the name of an actor from user input, and searches a file or database to return a list of movies that actor appears in"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "SubStrandName": "Evaluating",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "evaluate existing and student solutions against the design criteria, user stories and possible future impact",
+                                      "Code": "AC9TDI8P10",
+                                      "Elaborations": [
+                                        "evaluating how an existing solution ensures users can control their safety and experience online as described in the Safety by Design Vision for Young People, for example ensuring privacy settings are comprehensive, easy to use and set to maximum protection by default  ",
+                                        "reviewing the requirements of a user story to ensure that their solution meets the user’s needs, for example making sure that recommendations offered by their music application are of a similar genre to the rest of the user’s library",
+                                        "judging existing solutions on the basis of their possible impact on the economy, environment or society, for example cloud computing services decrease data loss but require vast amounts of electricity to power the servers"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "SubStrandName": "Collaborating and managing",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "select and use a range of digital tools efficiently, including unfamiliar features, to create, locate and communicate content, consistently applying common conventions",
+                                      "Code": "AC9TDI8P11",
+                                      "Elaborations": [
+                                        "locating relevant content from multiple sources, exploring advanced search functions and targeted criteria, for example using specific filters such as date range, image size, file type and usage licence ",
+                                        "selecting and using appropriate digital tools, for example when participating in online lessons or planning sessions using a common video conferencing tool ",
+                                        "applying common conventions consistently when creating content, for example organising content in paragraphs and within a heading hierarchy, writing captions to describe images and using gender-inclusive pronouns, where appropriate",
+                                        "creating logical storage locations for project assets and resources together with an outline to ensure collaborators are up to date, for example creating a logical storage area for a group to share content and ideas in a timely way about the canteen issue they are solving"
+                                      ]
+                                    },
+                                    {
+                                      "Description": "select and use a range of digital tools efficiently and responsibly to share content online, and plan and manage individual and collaborative agile projects",
+                                      "Code": "AC9TDI8P12",
+                                      "Elaborations": [
+                                        "collaborating effectively online using cloud storage, for example setting up and managing a shared space in an online repository to co-develop content for an app which presents and checks safety aspects of working in a specific setting such as a kitchen, lab, workshop or greenhouse",
+                                        "displaying empathy for diverse cultural expectations when participating in teams and in online communities, for example showing sensitivity around images or names of deceased people, and valuing the intellectual property and perspectives of others",
+                                        "demonstrating agile project management skills and understanding, for example when collaborating with First Nations Australians’ community groups to develop digital solutions to projects: following cultural protocols, including relevant permissions and attributions; acknowledging diversity, capability and strength; and addressing risks and responsibilities such as privacy, security and accuracy of data",
+                                        "determining and recording the tasks, responsibilities and timeframes for a collaborative project, for example using a spreadsheet to record tasks and their sequence, critical dates and who is responsible for each task so a project can be finished on time"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "SubStrandName": "Privacy and security",
+                                  "ContentDescriptions": [
+                                    {
+                                      "Description": "explain how multi-factor authentication protects an account when the password is compromised and identify phishing and other cyber security threats",
+                                      "Code": "AC9TDI8P13",
+                                      "Elaborations": [
+                                        "explaining how multi-factor authentication prevents unauthorised access by prompting the account owner for a token or single-use password, for example demonstrating how a funds transfer from their bank account requires not only logging in, but provision of a one-time password received via SMS",
+                                        "identifying the common techniques used in phishing scams to identify and exploit susceptible users, for example using an email address from an unofficial domain when pretending to be an online retailer, or including grammatical errors to help filter out users who are more likely to detect the scam "
+                                      ]
+                                    },
+                                    {
+                                      "Description": "investigate and manage the digital footprint existing systems and student solutions collect and assess if the data is essential to their purpose",
+                                      "Code": "AC9TDI8P14",
+                                      "Elaborations": [
+                                        "investigating the ethical obligations of individuals and organisations regarding ownership and privacy of data and information by researching an online platform’s privacy policy for data collection, use and storage information and discussing impacts on digital footprint",
+                                        "reviewing and managing their digital footprint across online digital tools that they use, for example selecting their default privacy and sharing settings on social media accounts",
+                                        "investigating how recommendation algorithms used in media services rely on data that tracks user habits, for example how music streaming services generate playlists that contain songs from genres and artists that are similar to those you listen to regularly",
+                                        "assessing the appropriateness and relevance of data collected by surveys from other students and organisations they complete online, for example identifying that providing your address data is not necessary for a survey asking about your food preferences but providing the address for the Census would be appropriate"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                        "LevelName": "9-10",
+                        "Age": 14,
+                        "Description": "By the end of Year 10 students should have had the opportunity to apply computational thinking by defining and decomposing real-world problems, creating user experiences, designing and modifying algorithms, and implementing them, including in an object-oriented programming language. Students use techniques, including interviewing stakeholders to develop user stories, to increase the precision of their problem definitions and solution specifications. They verify their solutions solve the problem by validating their algorithms, represented as flowcharts and pseudocode, and using test cases to confirm the correctness of their solutions. Students develop their object-oriented programming skills, and apply them to develop, modify and debug programs. They explain the importance of abstraction by representing online documents in terms of content, structure and presentation, as well as exploring simple data compression techniques and comparing their effectiveness. Students consolidate their skills in data acquisition and interpretation, cleaning and validating data to ensure it is accurate, consistent and domain appropriate. They model multidimensional data in more complex spreadsheets and relational databases, filtering and querying it to give insights into its meaning, and to pose further questions or make conclusions. They visualise this data in customisable ways, allowing greater exploration of trends and outliers to support or challenge their analyses. Students apply design thinking by using divergent techniques to generate design ideas for user experiences and solutions. They filter and prototype these ideas, developing user stories and applying design criteria based on current and future needs and enterprising opportunities, as well as their created user stories, and revise and further develop their preferred ideas based on their analysis. Students extend on these design criteria and user stories to evaluate the enterprise opportunities and future impact of existing solutions.  Students consolidate their systems thinking by exploring how the hardware and software components of digital systems interact to manage, control and secure access to data. They increasingly use advanced features of existing and emerging digital tools to create interactive content for a diverse audience. They explore simple tools that help plan tasks, timelines and responsibilities for individual and collaborative projects. Students extend their knowledge of the importance of security by developing cyber security threat models and exploring an example of a supply chain vulnerability. They critique the digital footprint created by existing systems and their own solutions by applying the Australian Privacy Principles. In Digital Technologies, students should have frequent opportunities for authentic learning by making key connections to other learning areas.   ",
+                        "DTAchievementStandard": "By the end of Year 10 students develop and modify innovative digital solutions, decompose real-world problems, and critically evaluate alternative solutions against stakeholder elicited user stories. Students acquire, interpret and model complex data with databases and represent documents as content, structure and presentation. They design and validate algorithms and implement them, including in an object-oriented programming language. Students explain how digital systems manage, control and secure access to data; and model cyber security threats and explore a vulnerability. They use advanced features of digital tools to create interactive content, and to plan, collaborate on, and manage agile projects. Students apply privacy principles to manage digital footprints.",
+                        "LAAchievementStandard": "",
+                        "Strands": [
+                          {
+                            "StrandName": "Knowledge and understanding",
+                            "SubStrands": [
+                              {
+                                "SubStrandName": "Digital systems",
+                                "ContentDescriptions": [
+                                  {
+                                    "Description": "investigate how hardware and software manage, control and secure access to data in networked digital systems",
+                                    "Code": "AC9TDI10K01",
+                                    "Elaborations": [
+                                      "explaining how the operating system hides the complexity of different hardware from applications, for example applications can treat input from a mouse and touch screen in the same way ",
+                                      "exploring how public key cryptography, for example TLS, and hashing, such as SHA-1, secure the storage and transmission of data ",
+                                      "configuring a simple network using real or simulated hardware and observing packets moving around the network, for example monitoring packets on simulated switches and networked devices ",
+                                      "explaining how domain names and IP addresses allow data to be transmitted to specific networked devices, for example DNS and routing tables ",
+                                      "describing elements of access control and explaining why they are necessary, for example authentication and permissions for restricting access to install software to administrators "
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "SubStrandName": "Data representation",
+                                "ContentDescriptions": [
+                                  {
+                                    "Description": "represent documents online as content (text), structure (markup) and presentation (styling) and explain why such representations are important",
+                                    "Code": "AC9TDI10K02",
+                                    "Elaborations": [
+                                      "representing documents by separating the content (the text in the document), the structure (the document structure such as headings and paragraphs) and presentation (how the document is laid out and styled)",
+                                      "writing webpages using HyperText Markup Language (HTML) for the content and structure and Cascading Style Sheets (CSS) for styling the page and explaining how HTML tags separate content from structure",
+                                      "explaining how representing content, structure and presentation separately allows each of them to be designed, edited, manipulated and stored independently of the others and why this is important"
+                                    ]
+                                  },
+                                  {
+                                    "Description": "investigate simple data compression techniques",
+                                    "Code": "AC9TDI10K03",
+                                    "Elaborations": [
+                                      "using an algorithm to identify patterns in data and represent them in a compressed way, for example repeated pixels in an image with run-length encoding",
+                                      "exploring the difference between lossy and lossless compression and the consequences of each, for example exploring codecs for audiovisual compression such as MP3, MP4 and WAV formats, considering energy requirements of file sizes",
+                                      "examining an image and discussing whether the image quality would be compromised if all the blue pixels of the sky in one row were to be replaced by one token and the number of pixels it represents"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "StrandName": "Processes and production skills",
+                            "SubStrands": [
+                              {
+                                "SubStrandName": "Acquiring, managing and analysing data",
+                                "ContentDescriptions": [
+                                  {
+                                    "Description": "develop techniques to acquire, store and validate data from a range of sources using software, including spreadsheets and databases",
+                                    "Code": "AC9TDI10P01",
+                                    "Elaborations": [
+                                      "developing systems that store structured data, for example a movie or travel review website that collects Likert scale ratings and written reviews ",
+                                      "developing systems that check data is correct and meaningful using automated techniques and manual analysis, for example, validating movie review data using rules and user interface elements, and detecting bias and fake reviews through simple statistical analysis",
+                                      "developing systems that acquire, use and protect data according to the Australian Privacy Principles, for example ensuring personally identifiable information is not publicly shared without consent and is protected from unauthorised access",
+                                      "accessing and storing data from the Australian Bureau of Statistics in a format that is useful for analysis, for example acquiring data on population growth across age groups in Australia",
+                                      "identifying strengths and weaknesses of collecting data using different methods, for example online surveys, face-to-face interviews, phone interviews, observation, comments in response to a social media posting, phone logs, browser history and online webcam systems "
+                                    ]
+                                  },
+                                  {
+                                    "Description": "analyse and visualise data interactively using a range of software, including spreadsheets and databases, to draw conclusions and make predictions by identifying trends and outliers",
+                                    "Code": "AC9TDI10P02",
+                                    "Elaborations": [
+                                      "summarising data, its attributes and the relationships between data sets, identifying trends and outliers to draw conclusions and make predictions, for example summarising data about electorates and their demographics, historical swings and exceptions to predict an election outcome",
+                                      "developing interactive visualisations for exploring complex data, for example population, life expectancy and fertility rate in motion charts",
+                                      "using software to visualise and compare data to identify patterns, relationships and trends, for example investigating emerging trends in Australia’s industries",
+                                      "exploring machine learning, a form of artificial intelligence where an algorithm is trained using a data set, for example to classify images into categories"
+                                    ]
+                                  },
+                                  {
+                                    "Description": "model and query entities and their relationships using structured data",
+                                    "Code": "AC9TDI10P03",
+                                    "Elaborations": [
+                                      "modelling entities and processes, their attributes and the relationships between them, for example creating database tables for a movie, a user and their movie review, where a movie has a title, genre and release date, and a review has a movie, a user and their rating and comments",
+                                      "using structured data to help in decision-making, for example creating a data schema for a relational database and building the database, incorporating query and reporting functionality to solve a problem of student choice",
+                                      "interpreting and querying multi-table databases using SQL queries with SELECT, WHERE and simple JOIN/GROUP BY clauses and counting, for example checking that each user has only reviewed each movie once"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "SubStrandName": "Investigating and defining",
+                                "ContentDescriptions": [
+                                  {
+                                    "Description": "define and decompose real-world problems with design criteria and by interviewing stakeholders to create user stories",
+                                    "Code": "AC9TDI10P04",
+                                    "Elaborations": [
+                                      "creating user stories by interviewing a stakeholder to complete a template such as 'As a <type of user>, I want <some goal> so that <some reason>”, for example interviewing an amateur athlete to complete the template, such as 'As an athlete, I want to ensure my energy intake is high enough to complete a half marathon.” ",
+                                      "defining the problem with precision and some awareness of scope, for example 'How do we encourage people to balance their energy intake and expenditure?” and 'Can this be solved in a specified timeframe?”",
+                                      "asking questions that help them define the problem more precisely, for example 'How do we measure energy intake?” or 'How much energy does each exercise expend?”",
+                                      "recognising the importance of diverse perspectives when defining the problem and devising survey or interview questions to elicit stakeholder needs, for example 'What types of exercise count?” and allowing open-ended responses to the exercise they do",
+                                      "exploring how First Nations Australian cultural stories and languages are being preserved with digital systems, for example how communities could record, animate and maintain their connections with culture and language in a contemporary format that resonates with young people to help ensure that vital practices continue"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "SubStrandName": "Generating and designing",
+                                "ContentDescriptions": [
+                                  {
+                                    "Description": "design algorithms involving logical operators and represent them as flowcharts and pseudocode",
+                                    "Code": "AC9TDI10P05",
+                                    "Elaborations": [
+                                      "designing an algorithm or modifying an existing algorithm to fix, extend or improve it, for example fixing a bug in an algorithm to detect if 2 shapes intersect when the shapes just touch or extending the algorithm to support a new shape",
+                                      "describing algorithms using flowcharts or other appropriate diagram types, for example a decision tree for classifying an animal based on physical characteristics ",
+                                      "describing algorithms precisely and succinctly using pseudocode, for example short, unambiguous statements such as IF length of word is greater than 4 AND first letter is a vowel",
+                                      "using Boolean operations (that is, AND, OR and NOT) to express complex conditions in control structures, for example IF [the temperature is above 30 degrees AND people are inside the building] THEN open the windows"
+                                    ]
+                                  },
+                                  {
+                                    "Description": "validate algorithms and programs by comparing their output against a range of test cases",
+                                    "Code": "AC9TDI10P06",
+                                    "Elaborations": [
+                                      "tracing and debugging an algorithm by identifying when its state is unexpected, why this has occurred, and the changes needed to correct it, for example identifying that a loop has finished one iteration too early",
+                                      "determining boundary test cases and testing that they are handled correctly by a program, for example checking that an intersection is detected when 2 shapes are perfectly aligned",
+                                      "generating invalid input and user errors and testing that they are handled appropriately by a program, for example checking that a program does not crash when text is entered instead of a number"
+                                    ]
+                                  },
+                                  {
+                                    "Description": "design and prototype the user experience of a digital system",
+                                    "Code": "AC9TDI10P07",
+                                    "Elaborations": [
+                                      "designing engaging user experiences, considering aesthetics, functionality and the feeling of enjoyment and satisfaction of the user",
+                                      "prototyping a user experience, using simple graphical tools that support clicking on an image to change slides or views, for example using a presentation tool or a no-code user interface prototyping tool to design a simple mobile app",
+                                      "considering all aspects of a product as perceived by the users, for example evaluating users’ initial experience of setting up and using a system, or users’ emotional or cultural response to using a digital system",
+                                      "designing documentation, branding and marketing for a digital solution, for example a product demonstration screencast or ‘getting started’ user guide"
+                                    ]
+                                  },
+                                  {
+                                    "Description": "generate, modify, communicate and critically evaluate alternative designs",
+                                    "Code": "AC9TDI10P08",
+                                    "Elaborations": [
+                                      "eliminating design ideas by evaluating them against the design criteria and user stories, for example in consultation with stakeholders, reviewing the design ideas, making modifications if necessary, and further developing the design of the preferred solution",
+                                      "using a range of ideation techniques to create multiple design ideas for a solution, for example using graphic organisers, role-play and mind mapping to develop and then record a range of ideas without evaluating them first"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "SubStrandName": "Producing and implementing",
+                                "ContentDescriptions": [
+                                  {
+                                    "Description": "implement, modify and debug modular programs, applying selected algorithms and data structures, including in an object-oriented programming language",
+                                    "Code": "AC9TDI10P09",
+                                    "Elaborations": [
+                                      "writing and editing programs to solve problems using algorithms and data structures in general-purpose and object-oriented programming languages, such as Python, JavaScript or C#",
+                                      "debugging a program by locating an error, modifying the program, and verifying that the changes made are correct, for example identifying the line in the code where an error occurs by reading an error message, printing out the variables to deduce what is causing the problem, and testing any fixes by entering data that could create similar errors",
+                                      "reading and interpreting programs split across files, functions or classes, and modifying them to add functionality, for example using the codebase of an existing adventure game and building new characters, levels or abilities",
+                                      "writing programs that receive structured data from the user that determines the program’s behaviour, for example processing a file that contains timestamped data captured by an altitude sensor from a plastic bottle rocket to graph its flight path",
+                                      "applying simple data structures and algorithms appropriately in their programs, for example using an array to store temperature data for a month, a dictionary to store character information in a role-playing game (RPG), and the binary search function from a library to find a value in a sorted array",
+                                      "defining their own classes to model and define the actions that can be performed on data in their programs, for example defining a class for a book that stores information such as the author, title and publisher, and methods that are used to track the book’s status in a library management system or store inventory",
+                                      "selecting different types of data structures such as array, record and object to model structured data"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "SubStrandName": "Evaluating",
+                                "ContentDescriptions": [
+                                  {
+                                    "Description": "evaluate existing and student solutions against the design criteria, user stories, possible future impact and opportunities for enterprise",
+                                    "Code": "AC9TDI10P10",
+                                    "Elaborations": [
+                                      "evaluating how an existing solution detects violations of site rules and imposes sanctions as described in the Safety by Design Vision for Young People, for example enforcing rules using artificial intelligence and human moderators to detect inappropriate behaviour, and consistently imposing consequences ",
+                                      "judging the quality of the output of their solution against the design criteria, for example confirming that the stock levels recorded by their inventory management application are accurate within allowed parameters",
+                                      "evaluating how existing products have pivoted to meet the needs of a different set of users, for example how new social media applications continue to expand the types of media people share and the interactions they have online"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "SubStrandName": "Collaborating and managing",
+                                "ContentDescriptions": [
+                                  {
+                                    "Description": "select and use emerging digital tools and advanced features to create and communicate interactive content for a diverse audience",
+                                    "Code": "AC9TDI10P11",
+                                    "Elaborations": [
+                                      "locating relevant content by using Boolean operators or artificial intelligence search features of search engines and desktop search, for example queries with ‘and’ and ‘not’ or advanced image similarity search",
+                                      "using emerging technologies to add dynamic features to content, for example using a QR code to trigger an augmented reality (AR) overlay of how to use a tool safely in the workshop ",
+                                      "incorporating interactive elements into content to assist with analysis, for example adding sliders to visualisations to allow the user to control and view time series data",
+                                      "ensuring content is accessible by using built-in accessibility features, for example using ALT tags in images inside HTML to ensure screen readers can communicate content for people who are visually impaired"
+                                    ]
+                                  },
+                                  {
+                                    "Description": "use simple project management tools to plan and manage individual and collaborative agile projects, accounting for risks and responsibilities",
+                                    "Code": "AC9TDI10P12",
+                                    "Elaborations": [
+                                      "managing collaborative projects using appropriate platforms, for example sharing code development using a collaborative version control tool such as GitHub to plan, decompose and manage a project with their peers",
+                                      "establishing clear lines of responsibility and tasks for all members of a project team, for example assigning roles to all team members and using a spreadsheet to sequence tasks and track progress to ensure all work is completed by a specified deadline",
+                                      "using relevant legislation or guidelines to inform their solutions, for example correctly controlling and treating data collected from users by applying techniques that ensure data protection, privacy and copyright requirements are followed",
+                                      "planning the creation of content using project management tools to mitigate potential risks or project delays, for example incorporating project management techniques including scheduling, revision, iteration and evaluation into common collaboration tools to ensure timely delivery of effective solutions",
+                                      "accounting for appropriate project management responsibilities, for example when collaborating with First Nations Australians’ community groups to develop digital solutions to projects: following cultural protocols, including relevant permissions and attributions; acknowledging diversity, capability and strength; and addressing risks and responsibilities such as privacy, security and accuracy of data"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "SubStrandName": "Privacy and security",
+                                "ContentDescriptions": [
+                                  {
+                                    "Description": "develop cyber security threat models, and explore a software, user or software supply chain vulnerability",
+                                    "Code": "AC9TDI10P13",
+                                    "Elaborations": [
+                                      "using a data flow diagram to understand how private information moves through a system and when it would be the most likely target of a cyber attack, for example mapping how data moves between the user and server when using a web application, and identifying that sending the data in plaintext would make it susceptible to a man-in-the-middle attack",
+                                      "exploring the impact of a cyber security threat by systematically following the steps involved in bypassing a known vulnerability in their own software, for example manually changing the value stored in a login cookie to that of another user to observe the impact of unauthorised access on the system"
+                                    ]
+                                  },
+                                  {
+                                    "Description": "apply the Australian Privacy Principles to critique and manage the digital footprint that existing systems and student solutions collect",
+                                    "Code": "AC9TDI10P14",
+                                    "Elaborations": [
+                                      "critiquing the extent to which online services allow them to control access to their data in line with the Australian Privacy Principles, for example assessing whether their social media accounts allow them to update their contact information if these details change, and who else can see that information on the platform",
+                                      "using the Australian Privacy Principles as a reference to evaluate the steps they are taking to protect user information in their application, for example explaining how they are storing passwords using cryptographic hashing algorithms so that a data breach does not expose their users to security vulnerabilities due to password re-use"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                }
+            ]
+        }
+    ]
+}

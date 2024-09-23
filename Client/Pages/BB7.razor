@@ -1,0 +1,152 @@
+﻿@page "/bb7"
+@layout EmptyLayout
+
+
+@using Microsoft.AspNetCore.SignalR.Client
+@using OpenAI;
+@using OpenAI.Chat;
+@using Newtonsoft.Json;
+@using System.Text;
+@using AIV4.Shared;
+@using Microsoft.Fast.Components.FluentUI;
+@using System.Diagnostics
+
+
+@inject HttpClient Http
+@inject NavigationManager NavManager
+@inject IJSRuntime JSRuntime
+
+
+
+<PageTitle>@AppName</PageTitle>
+<div class="dialog-title">
+    <h2>@AppName @alert</h2>
+</div>
+
+
+
+<div class="container mx-auto mt-4">
+    <div class="row g-2">
+        <div class="col-md-2">
+            <p>I am in grade @Grade </p>
+        </div>
+        <div class="col-md-3">
+            <FluentSlider Label="" FluentUI.Orientation="Orientation.Horizontal" Min="3" Max="13" Step="1" @bind-Value=Grade>
+                <FluentSliderLabel Position="3">3</FluentSliderLabel>
+                <FluentSliderLabel Position="4">4</FluentSliderLabel>
+                <FluentSliderLabel Position="5">5</FluentSliderLabel>
+                <FluentSliderLabel Position="6">6</FluentSliderLabel>
+                <FluentSliderLabel Position="7">7</FluentSliderLabel>
+                <FluentSliderLabel Position="8">8</FluentSliderLabel>
+                <FluentSliderLabel Position="9">9</FluentSliderLabel>
+                <FluentSliderLabel Position="10">10</FluentSliderLabel>
+                <FluentSliderLabel Position="11">11</FluentSliderLabel>
+                <FluentSliderLabel Position="12">12</FluentSliderLabel>
+                <FluentSliderLabel Position="13">>12</FluentSliderLabel>
+            </FluentSlider>
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-3">
+            <p>working in: <FluentTextField @bind-Value=Subject Appearance="FluentInputAppearance.Filled"  Placeholder="Subject"></FluentTextField></p>
+        </div>
+        <div class="col-md-3">
+            <p>on: <FluentTextField @bind-Value=Concept Appearance="FluentInputAppearance.Filled" Placeholder="Concept"></FluentTextField></p>
+        </div>
+    </div>
+    <hr/>
+    <div class="row g-2">
+        @foreach (var bb in bbprompts)
+        {
+            <div class="col-md-4">
+                <div class="card mb-3" style="width: 18rem;">
+                    <img src=@bb.bbimage class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">My @bb.bbtype buddy</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@bb.bbdescription</h6>
+                        <p class="card-text">@bb.bbexplanation.</p>
+                        <FluentButton Appearance="Appearance.Outline" @onclick='() => LetsDoIt(bb.bbtype)'>Let's Do It</FluentButton>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+@*
+ The modal popup
+ pass parameter show... to the popup to make it visible
+ When the popup closes the callback will change OnClose property, whichis boud to the local property
+ *@
+@if (ShowBrainyBuddyPopup)
+{
+    <BrainyBuddy    Show="@ShowBrainyBuddyPopup"
+                    BuddyName="@SelectedBuddy"
+                    GradeLevel="@GradeLevel"
+                    SystemPrompt="@systemPrompt"
+                    OnClose="@CloseBrainyBuddyPopup" />
+}
+
+
+@code {
+
+    private string AppName = "BB7 - My Seven Brainy Buddies";
+    string alert = "";
+
+    List<BBPrompt>? bbprompts = new List<BBPrompt>();//otherwise initial render doesnt work
+    private string systemPrompt = "";
+    private string SelectedBuddy = "";
+    private int Grade = 8;
+    private string GradeLevel = "";
+    private string Subject = "";
+    private string Concept = "";
+    private string StudentTask = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            BBPromptsModel model = await Http.GetFromJsonAsync<BBPromptsModel>("bbprompts");// read in BBPrompts from controller
+            bbprompts = model.bbprompts;
+        }
+        catch(Exception e){
+            Debug.WriteLine(e);
+        }
+
+    }
+
+
+    //action the button press to open the popup
+    private void LetsDoIt(string promptName)
+    {
+        GradeLevel = Grade > 12 ? "adult" : "grade " + Grade;
+        SelectedBuddy = promptName;
+        systemPrompt = bbprompts.Where(x => x.bbtype == promptName).ToArray()[0].bbprompt;
+        systemPrompt = systemPrompt
+            .Replace("{grade}", GradeLevel)
+            .Replace("{subject}", Subject)
+            .Replace("{concept}", Concept);
+        ShowBrainyBuddyPopup = true;
+    }
+
+    private bool ShowBrainyBuddyPopup { get; set; } = false;
+    public void CloseBrainyBuddyPopup()
+    {
+        ShowBrainyBuddyPopup = false;
+    }
+
+
+    // protected override async Task OnAfterRenderAsync(bool firstRender)
+    // {
+    //     try
+    //     {
+
+    //     }
+    //     catch (Exception exc)
+    //     {
+    //         Debug.WriteLine(exc);  this exception is caught when the application loads as the JS is still loading
+    //     }
+    // }
+
+}

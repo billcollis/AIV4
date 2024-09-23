@@ -1,0 +1,28 @@
+﻿
+
+<div class="project-card">
+    <h3>@ProjectName</h3>
+    <img src="portfolio/assets/@ImageSrc" alt="@ImageAlt">
+    <ul>
+        @for(int i=0; i< TechList!.Count; i++)
+        {
+            <li>@TechList[i]</li>
+        }
+    </ul>
+    <div class="project-info">
+        <h3>@ProjectName</h3>
+        <p>@ProjectDescription</p>
+        <div>
+            <a href="@ProjectUrl">Visit @ProjectName!</a>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string? ImageSrc { get; set; }
+    [Parameter] public string? ImageAlt { get; set; }
+    [Parameter] public string? ProjectName { get; set; }
+    [Parameter] public string? ProjectDescription { get; set; }
+    [Parameter] public string? ProjectUrl { get; set; }
+    [Parameter] public List<String>? TechList { get; set; }
+}

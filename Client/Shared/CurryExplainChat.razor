@@ -1,0 +1,244 @@
+﻿@using Microsoft.AspNetCore.SignalR.Client
+@using OpenAI;
+@using OpenAI.Chat;
+@using Newtonsoft.Json;
+@using System.Text;
+@using AIV4.Shared;
+@using Microsoft.Fast.Components.FluentUI;
+
+@inject NavigationManager NavManager
+@using Microsoft.AspNetCore.Components.WebAssembly.Hosting
+@inject IWebAssemblyHostEnvironment Env
+
+@if (Show)
+{
+    <div class="dialog-container">
+        <div class="dialog">
+            <div class="dialog-title">
+                <h2>@CD1.ConceptName: Year:@CD1.LevelName</h2>
+                <h2>@CD1.Code</h2>
+                @CD1.Description
+            </div>
+            <ConversationDisplay ConversationHistory="@conversationHistory" />
+
+            <div class="textMessage">
+                <textarea rows="6" @bind="userPrompt"></textarea>
+            </div>
+            @if (!IsConnected)
+            {
+                <button class="btn btn-warning" @onclick="Connect">Reconnect</button>
+            }
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+                        <button class="btn btn-secondary" @onclick="OnClose">Close</button>
+                    </div>
+                    <div class="col-4">
+                        @if (Env.IsDevelopment())
+                        {
+                            <label for="pwd">Don't enter passphrase:</label>
+                            <input type="password" maxlength="40" @bind-value=passphrase style="width:100%" />
+                        }
+                        else
+                        {
+                            <label for="pwd">Enter your passphrase:</label>
+                            <input type="password" maxlength="40" @bind-value=passphrase style="width:100%" />
+                        }
+                    </div>
+                    <div class="col-4">
+                        <div>
+                            <button class="btn btn-primary float-end" @onclick="SendPrompt">Ask @ModelName</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="col">
+                <p class=" fw-semibold"> by Dr. Bill Collis </p>
+            </div>
+       </div>
+    </div>
+}
+
+@code {
+    [Parameter] public ContentDescription CD1 { get; set; }
+    [Parameter] public bool Show { get; set; }
+    [Parameter] public List<string> Prompts { get; set; }
+    [Parameter] public string ModelName { get; set; }
+    //callback to parent that the close event has happend
+    //used to set bool to false
+    [Parameter]public EventCallback OnClose { get; set; }
+
+
+    //my own class for capturing conversations
+    private List<ConversationContent> conversationHistory = new List<ConversationContent>();
+
+    private string appName = "Curry-Up";
+    string alert = "disconnected";
+
+    private HubConnection? textChatHubConnection;
+    public bool IsConnected => textChatHubConnection?.State == HubConnectionState.Connected;
+    private string user = "";
+
+    private string userPrompt = "";
+    // public List<string> messageHistory = new List<string>();
+    // private static HttpClient Http = new HttpClient();
+
+    // public string responses = "";
+    private HubConnection? hubConnection;
+
+    private string passphrase = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Connect();
+
+        //message = $@"Act as an expert teacher/facilitator.
+        // Help a new teacher of {Age} year old students understand the content description
+        // from Version 9 of the Australian Curriculum '{CD.Description}' ";
+        //need to do manual replacement - 
+        userPrompt = Prompts[0].Replace("{Age}",CD1.Age)
+            .Replace("{LevelName}", CD1.LevelName)
+            .Replace("{ConceptName}", CD1.ConceptName)
+            .Replace("{Description}", CD1.Description);
+    }
+
+    private async Task Connect()
+    {
+        try
+        {
+            textChatHubConnection = new HubConnectionBuilder()
+                .WithUrl(NavManager.ToAbsoluteUri($"/chatgpthub?user={user}")) //not using username currently
+                .Build();
+
+            //the 'channel'(?) for communication
+            textChatHubConnection.On<string>("textChat", (message) =>
+            {
+                if (getStats(message)) return;//dont add stats to conv history
+                addTextToConvHistory(message);
+                //JSRuntime.InvokeVoidAsync("scrollToBottom", ScrollAreaRef);
+                StateHasChanged();
+            });
+
+            await textChatHubConnection.StartAsync();
+            if (IsConnected)
+            {
+                Alert(""); //blank messge
+            }
+            else
+            {
+                Alert("disconnected"); //warn user disconnected from hub
+            }
+
+        }
+        catch (Exception exc)
+        {
+            var e = exc;
+        }
+    }
+
+    private string statsSubstring = "Data...Token";
+    private int tokensIn = 0;
+    private int tokensOut = 0;
+
+    /// <summary>
+    /// get the token stats for this stream,
+    /// add to totals
+    /// </summary>
+    /// <param name="text"></param>
+    /// <returns></returns>
+    private bool getStats(string text)
+    {
+        //get stats - note specific formatting of the string in ChatGPTHub, starts with  "Data...Token Usage"
+        int indx = text.IndexOf(statsSubstring);
+        try
+        {            
+            if (indx > -1)
+            {
+                string stats = text.Replace("\n\n\nData...Token Usage In:", "");
+
+                int spaceIndex = stats.IndexOf(" ");
+                string tokensString = stats.Substring(0, spaceIndex);
+                tokensIn += int.Parse(tokensString);
+                stats = stats.Replace(tokensString, "").Trim();
+
+                stats = stats.Replace("Out:", "");
+                spaceIndex = stats.IndexOf(" ");
+                tokensString = stats.Substring(0, spaceIndex);
+                tokensOut += int.Parse(tokensString);
+                return true;
+            }
+        }
+        catch(Exception e)
+        {
+            var exc = e;
+        }
+        return false;
+    }
+
+    private void addTextToConvHistory(string text)
+    {
+        //Console.WriteLine(text);
+        text = CodeParser.Parse(text);
+        //Console.WriteLine(text);
+
+        //add the text to the last item in convHistory - via binding this is shown on the last conversation bubble
+        if (conversationHistory.Count > 0)
+        {
+            // Access the last convContent using index (Count - 1), if it is not assistant create assistant, text type
+            if (conversationHistory[conversationHistory.Count - 1].Role != Role.Assistant)
+            {
+                var conversationContent = new ConversationContent(Role.Assistant, ContentType.Text);
+                conversationContent.AppendTextResponse(text);
+                conversationHistory.Add(conversationContent);
+            }
+            else //add to last conv
+            {
+                conversationHistory[conversationHistory.Count - 1].AppendTextResponse(text);
+            }
+        }
+    }
+
+
+    private void Alert(string msg)
+    {
+        if (msg == "")
+        {
+            alert = msg;
+        }
+        else
+        {
+            alert = "- " + msg;
+        }
+
+    }
+
+
+    /// <summary>
+    /// Send a single prompt - not a conversation
+    /// </summary>
+    /// <returns></returns>
+    private async Task SendPrompt()
+    {
+        //if its not connected
+        if (!IsConnected)
+        {
+            return;
+        }
+
+        var thisContent = new ConversationContent(userPrompt);
+        if (Env.IsDevelopment()) passphrase = "locally";
+        thisContent.PassPhrase = passphrase;
+        conversationHistory.Add(thisContent);
+
+        //at this stage dont send history just send a new convHistory object with only 1 conv
+        List<ConversationContent> temp = new List<ConversationContent>();
+        temp.Add(thisContent);
+
+        var json = JsonConvert.SerializeObject(temp);
+
+        //send single text request to the hub -
+        await textChatHubConnection.SendAsync("SendToOpenAIAPI", json, ModelName);
+        StateHasChanged();
+    }
+}

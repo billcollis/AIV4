@@ -1,0 +1,102 @@
+﻿@using OpenAI.Chat;
+@using System.Text;
+@using AIV4.Shared;
+@using System.Diagnostics
+
+@inject IJSRuntime JSRuntime
+
+<div class="messages">
+    @for (int i = 0; i < ConversationHistory!.Count; i++)
+    {
+        int idx = i;//cannot pass i as a parameter as it will pass the last value from i in the for loop
+        <div class="row">
+            @if (ConversationHistory[i].Role == Role.User)
+            {
+                <div class="col-1 rounded-circle bg-dark-subtle text-center"
+                     style="width:50px;height:30px;">
+                    <span class="bi fs-2 bi-person-fill"></span>
+                </div>
+                <div class="question wrapper" style="@(conversationHidden.Contains(i)?"height:20px; overflow:none;":"height:auto; overflow:auto;")">
+                    <span class="close-left bi @(conversationHidden.Contains(i)?"bi-circle":"bi-x-circle")" @onclick="()=>hideClick(idx)"></span>
+                    <span class="@(conversationHidden.Contains(i)?"d-none":"d-block")">@(new MarkupString(@ConversationHistory[i].Text))</span>
+                </div>
+            }
+            else if (ConversationHistory[i].Role == Role.Assistant && !string.IsNullOrWhiteSpace(ConversationHistory[i].TextContent.ToString())) // Check if text content is not empty
+            {
+                Debug.WriteLine(ConversationHistory[i].TextContent.ToString());
+
+                <div class="response wrapper" style=" @(conversationHidden.Contains(i)?"height:30px; ":"height:auto; ")">
+                    <span class="close-left bi @(conversationHidden.Contains(i)?"bi-circle":"bi-x-circle")" @onclick="()=>hideClick(idx)"></span>
+                    <span class="@(conversationHidden.Contains(i)?"d-none":"d-block")">@(new MarkupString(@ConversationHistory[i].Text))</span>
+                    <span class="close-right bi @(ConvSelectedCallback.Contains(i)?"bi-check-circle":"bi-circle")" @onclick="()=>sClick(idx)"></span>
+                </div>
+                <div class="col-1 rounded-circle bg-dark-subtle text-center"
+                     style="width:50px;height:30px;">
+                    <span class="bi fs-2 bi-robot"></span>
+                </div>
+            }
+            else if (ConversationHistory[i].Role == Role.System && !string.IsNullOrWhiteSpace(ConversationHistory[i].TextContent.ToString())) // Check if text content is not empty
+            {
+                <div class="col-1 rounded-circle bg-dark-subtle text-center"
+                     style="width:50px;height:30px;">
+                    <span class="bi fs-2 bi-signpost"></span>
+                </div>
+                <div class="system wrapper" style="@(conversationHidden.Contains(i)?"height:20px; overflow:none;":"height:auto; overflow:auto;")">
+                    <span class="close-left bi @(conversationHidden.Contains(i)?"bi-circle":"bi-x-circle")" @onclick="()=>hideClick(idx)"></span>
+                    <span class="@(conversationHidden.Contains(i)?"d-none":"d-block")">@(new MarkupString(@ConversationHistory[i].Text))</span>
+                </div>
+
+            }
+            else //no response yet so show spinner
+            {
+                <div class="response">
+                    <div class="spinner"></div>
+                </div>
+                <div class="col-1 rounded-circle bg-dark-subtle text-center m-2 p-0"
+                     style="width:50px;height:50px;">
+                    <span class="bi fs-2 bi-gpu-card"></span>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+
+
+@code {
+
+    [Parameter] public List<ConversationContent>? ConversationHistory {get; set; }
+    [Parameter] public List<int> ConvSelectedCallback { get; set; } = new List<int>();
+
+    private List<int> conversationHidden = new List<int>();
+
+    public async void hideClick(int i)
+    {
+        //just hide the conversation content
+        if (conversationHidden.Contains(i))
+        {
+            conversationHidden.Remove(i);
+        }
+        else
+        {
+            conversationHidden.Add(i);
+        }
+        StateHasChanged();
+    }
+    [Parameter] public EventCallback<int> SClickCallback { get; set; }
+    public async void sClick(int i)
+    {
+        if (ConvSelectedCallback.Contains(i))
+        {
+            ConvSelectedCallback.Remove(i - 1);
+            ConvSelectedCallback.Remove(i);
+        }
+        else
+        {
+            ConvSelectedCallback.Add(i - 1);
+            ConvSelectedCallback.Add(i);
+        }
+        await SClickCallback.InvokeAsync(i);
+
+    }
+}

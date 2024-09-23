@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html lang="en-au">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width. initial-scale=1.0"/>
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="theme.css" />    
+    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo-wrapper">
+                <img src="assets/logo.svg" alt="Website logo" class="logo-img" />
+                <h1 class="logo">Bill</h1>
+            </div>
+            <ul class="nav-list">
+                <li class="nav-item"><a href="portfolio.html" class="nav-link">home</a></li>
+                <li class="nav-item"><a href="work.html" class="nav-link">work</a></li>
+                <li class="nav-item"><a href="aboutme.html" class="nav-link">about-me</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="social-links">
+        <div class="social-links-line">        </div>
+        <ul>
+            <li><a href="#"><img src="assets/linkedin.svg"alt="Linked In"></a></li>
+        </ul>
+    </div>
+
+    <main>
+        <div class="main-container">
+            <section class="hero">
+                <div class="hero-content">
+                    <h2>I am a passionate <span>engineer</span></h2>
+                    <p>with an extensive background in software, hardware and the mentoring of engineers and students</p>
+                    <button class="contact-button">Contact me !!</button>
+                </div>
+                <div class="hero-image">
+                    <img src="assets/Bill-Bike.jpg" alt="Photo of Bill, an engineer and educator" />
+                    <div class="portfolio-note-wrapper">
+                        <div class="purple-square"></div>
+                        <p class="portfolio-note">I am <s>currently</s> always working on updating this site!</p>
+                    </div>            
+                </div>
+            </section>
+
+            <section class="quote">
+                <blockquote>It may be that when we no longer know what to do
+                    <br />
+                    we have come to our real work,
+                    <br />
+                    and that when we no longer know which way to go
+                    <br />
+                    we have come to our real journey.
+                </blockquote>
+                <figcaption>by Wendell Berry</figcaption>
+           </section>
+
+           <section class="projects">
+                <div class="projects-header">
+                    <h2>Projects</h2>
+                    <!-- <a class="projects-link" href="projects.html">View All ~~></a> -->
+                </div>
+                <div class="project-cards">
+                    @foreach(var pp in pprojects)
+                    {
+                        <Portfolio_Project 
+                            ImageSrc="@pp.image_alt"
+                            ImageAlt="@pp.image_alt"
+                            ProjectName="@pp.project_name"
+                            ProjectDescription="@pp.project_description" 
+                            ProjectUrl="@pp.project_url"
+                            TechList="@pp.tech_list"
+                            />
+                    }
+                </div>
+           </section>
+
+            <section class="skills">
+                <div class="section-header">
+                    <h2>skills</h2>
+                </div>
+                <div class="skills-content">
+                    <img src="assets/skills.svg" alt="Illustration image of skills">
+                    <div class="skill-cards">
+                        <div class="skill-group">
+                            <div class="skill-category">
+                                <h4>Programming <br />Languages</h4>
+                                <ul>
+                                    <li>C#</li>
+                                    <li>Java</li>
+                                    <li>C</li>
+                                    <li>Python</li>
+                                    <li>JavaScript</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="skill-group">
+                            <div class="skill-category">
+                                <h4>Technologies</h4>
+                                <ul>
+                                    <li>Linux</li>
+                                    <li>Visual Studio</li>
+                                    <li>.NET</li>
+                                    <li>Azure</li>
+                                    <li>HTML</li>
+                                    <li>CSS</li>
+                                    <li>JQuery</li>
+                                    <li>Bootstrap</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="skill-group">
+                            <div class="skill-category">
+                                <h4>Hardware</h4>
+                                <ul>
+                                    <li>Embedded Systems</li>
+                                    <li>Electronics</li>
+                                    <li>Circuit Design</li>
+                                    <li>Radio Systems</li>
+                                    <li>Telecommunications</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="acknowledgement">
+                <div class="section-header">
+                    <h2>Acknowledgement of Country</h2>
+                </div>
+                <div class="hero">
+                    <div class="hero-content">
+                        <p>I acknowledge the <span>Wurundjeri People of the Kulin Nation</span> as the traditional owners of the lands on which I live and work, and I pay respect to their elders past, present and emerging.</p>
+                    </div>
+                    <div class="hero-image">
+                        <img src="assets/art-sml-448-336.jpg" alt="Indegenous artwork" />
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="contacts">
+                <div class="section-header">
+                    <h2>contacts</h2>
+                </div>
+                <div class="contacts-content">
+                    <p>I thrive on helping others use technologyto maximise our work, build capacity and grow as life-long learners</p>
+                    <div class="contacts-card">
+                        <h4>Message me here</h4>
+                        <div class="contact">
+                            <img src="assets/discord-icon.svg" alt="Discord icon">
+                            <span>billc579</span>
+                        </div>
+                        <div class="contact">
+                            <img src="assets/email-icon.svg" alt="Email icon">
+                            <span>techideasnz@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+         </div>
+    </main>
+</body>
+
+</html>

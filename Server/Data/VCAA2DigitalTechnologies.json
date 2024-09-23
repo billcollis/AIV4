@@ -1,0 +1,94 @@
+{
+  "Digital Technologies": {
+    "Introduction": {
+      "Rationale": "Digital Technologies empowers students to shape change by influencing how contemporary and emerging information systems and practices are applied to meet current and future needs...",
+      "Aims": {
+        "Use Computational Thinking": "Decomposition, pattern recognition, abstraction, modeling, and algorithms to create digital solutions.",
+        "Use Design Thinking": "Design, create, manage, and evaluate sustainable and innovative digital solutions...",
+        "Apply Systems Thinking": "Monitor, analyze, and predict the interactions within and between information systems...",
+        "Use Digital Systems": "Confidently and responsibly use digital systems to automate the transformation of data..."
+      }
+    },
+    "Structure": {
+      "Strands": [
+        {
+          "Digital Systems and Security": {
+            "Overview": "The focus is on the components of digital systems, including hardware, software, and networks...",
+            "Levels": {
+              "Foundation to Level 2": "Learn about hardware and software and progress to understanding data transmission...",
+              "Levels 3 and 4": "Develop understanding of data integrity, security protocols, and multi-factor authentication...",
+              "Levels 5 and 6": "Explore cyber security threats and create more complex security protocols..."
+            }
+          },
+          "Data Information and Privacy": {
+            "Overview": "This strand focuses on how data is represented, structured, and analyzed for use in digital systems...",
+            "Levels": {
+              "Foundation to Level 2": "Explore data acquisition strategies and basic data representation...",
+              "Levels 3 and 4": "Progress to data validation and analyze the properties of data...",
+              "Levels 5 and 6": "Create and manage personal data and implement security protocols..."
+            }
+          },
+          "Creating Digital Solutions": {
+            "Overview": "This strand focuses on defining problems and creating digital solutions using design and computational thinking...",
+            "Levels": {
+              "Foundation to Level 2": "Identify simple needs and create basic digital solutions...",
+              "Levels 3 and 4": "Progress to more complex problem-solving using algorithms...",
+              "Levels 5 and 6": "Implement and test digital solutions using programming languages..."
+            }
+          }
+        }
+      ]
+    },
+    "Learning in Digital Technologies": {
+      "Key Concepts": {
+        "Abstraction": "Reducing complexity by hiding details to focus on a manageable number of aspects...",
+        "Data Representation": "How data is acquired, represented, and interpreted in context...",
+        "Algorithms": "Precise descriptions of sequences of steps for solving problems...",
+        "Digital Systems": "Focus on components of systems such as binary data processing, hardware components, and networks...",
+        "Privacy and Security": "Protecting data stored and transmitted through digital systems..."
+      }
+    },
+    "Curriculum by Levels": {
+      "Foundation to Level 2": {
+        "Description": "Develop systems thinking by exploring digital system components...",
+        "Achievement Standard": "Students access digital systems and use them for specific purposes...",
+        "Content Descriptions": [
+          "Identify and explore digital systems...",
+          "Represent data as objects, pictures, symbols, numbers, and words..."
+        ]
+      },
+      "Levels 3 and 4": {
+        "Description": "Expand understanding of security protocols and data privacy...",
+        "Achievement Standard": "Students secure their personal data and use digital tools to collaborate...",
+        "Content Descriptions": [
+          "Recognize patterns in data and validate data integrity...",
+          "Collaborate using secure communication protocols..."
+        ]
+      },
+      "Levels 5 and 6": {
+        "Description": "Develop more advanced skills in problem-solving and creating digital solutions...",
+        "Achievement Standard": "Students design, test, and evaluate digital solutions...",
+        "Content Descriptions": [
+          "Create complex algorithms using control structures...",
+          "Test and validate digital solutions using test cases..."
+        ]
+      },
+      "Levels 7 and 8": {
+        "Description": "Focus on encryption, networks, and secure data transmission...",
+        "Achievement Standard": "Students evaluate security protocols and implement algorithms...",
+        "Content Descriptions": [
+          "Create secure systems for storing and transmitting data...",
+          "Implement algorithms using programming languages..."
+        ]
+      },
+      "Levels 9 and 10": {
+        "Description": "Consolidate skills in systems thinking and cybersecurity...",
+        "Achievement Standard": "Students design and evaluate complex digital systems...",
+        "Content Descriptions": [
+          "Model and analyze cyber security threats...",
+          "Design algorithms to manage and process large data sets..."
+        ]
+      }
+    }
+  }
+}

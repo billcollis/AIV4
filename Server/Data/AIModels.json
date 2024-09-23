@@ -1,0 +1,8 @@
+{
+  "AIModels": [
+    "gpt-4o-mini",
+    "gpt-4o",
+    "01mini",
+    "o1-preview"
+  ]
+}

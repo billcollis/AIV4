@@ -1,0 +1,248 @@
+﻿@using Microsoft.AspNetCore.SignalR.Client
+@using OpenAI;
+@using OpenAI.Chat;
+@using Newtonsoft.Json;
+@using System.Text;
+@using AIV4.Shared;
+@using Microsoft.Fast.Components.FluentUI;
+@using System.Diagnostics
+
+@inject NavigationManager NavManager
+@using Microsoft.AspNetCore.Components.WebAssembly.Hosting
+@inject IWebAssemblyHostEnvironment Env
+
+@* This is the popup - tailored to each of the Brainy Buddies *@ 
+
+
+@if (Show)
+{
+    <div class="dialog-container">
+        <div class="dialog">
+            <div class="dialog-title">
+                <h2>My brainy @BuddyName buddy @alert </h2>
+                <ConversationDisplay ConversationHistory="@conversationHistory" />
+            </div>
+@*              <div class="systemMessage">
+                <textarea rows="3" @bind="editableUserPrompt"></textarea>
+            </div>  *@
+@*             <div class="systemMessage">
+                <textarea readonly rows="3" @bind="SystemPrompt"></textarea>
+            </div> *@
+            <div class="textMessage">
+                <textarea rows="1" @bind="UserPrompt"></textarea>
+            </div>
+            @if (!IsConnected)
+            {
+                <button class="btn btn-warning" @onclick="Connect">Reconnect</button>
+            }
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+                        <button class="btn btn-secondary" @onclick="OnClose">Close</button>
+                    </div>
+                    <div class="col-4">
+                        @if (Env.IsDevelopment())
+                        {
+                            <label for="pwd">Don't enter passphrase:</label>
+                            <input type="password" maxlength="40" @bind-value=passphrase style="width:100%" />
+                        }
+                        else
+                        {
+                            <label for="pwd">Enter your passphrase:</label>
+                            <input type="password" maxlength="40" @bind-value=passphrase style="width:100%" />
+                        }
+                    </div>
+                    <div class="col-4">
+                        <div>
+                            <button class="btn btn-primary float-end" @onclick="SendPrompt">Ask @ModelName</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+
+@code {
+
+
+    [Parameter] public bool Show {  get; set; }
+    [Parameter] public string? BuddyName { get; set; }
+    [Parameter] public string GradeLevel { get; set; } = "5";
+    [Parameter] public string SystemPrompt { get; set; } = ""; //the original passed prompt 
+    [Parameter] public string UserPrompt { get; set; } = ""; 
+    [Parameter] public string? ModelName { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+
+    private string promptBtnText = "Begin Chat";
+
+    private string modelName = "gpt-4o-mini";
+    private string chatGuid = "";
+
+    private HubConnection? textChatHubConnection;
+    private bool IsConnected => textChatHubConnection?.State == HubConnectionState.Connected;
+
+    private string passphrase = "";
+
+    private string alert = " is disconnected";
+
+    public string message = "";
+
+    private bool beginConv = true;
+
+    private static HttpClient Http = new HttpClient();
+
+    private string username = "";
+    public string responses = "";
+
+    //my own class for capturing conversations
+    private List<ConversationContent> conversationHistory = new List<ConversationContent>();
+
+    private bool isSendingMessage;
+
+
+    /// <summary>
+    /// Connect to the hub on the server
+    /// open a channel called 'textchat'
+    /// messages back from the server arrive here in the .On<string>() event
+    /// </summary>
+    /// <returns></returns>
+    private async Task Connect()
+    {
+        try
+        {
+            textChatHubConnection = new HubConnectionBuilder()
+                .WithUrl(NavManager.ToAbsoluteUri($"/chatgpthub?user={username}"))
+                .Build();
+
+            //the 'channel' for communication
+            textChatHubConnection.On<string>("textChat", (returnText) =>
+            {
+                addTextToConvHistory(returnText);
+            });
+
+            await textChatHubConnection.StartAsync();
+            if (IsConnected)
+            {
+                Alert($"is connected to {modelName}");
+            }
+            else
+            {
+                Alert("is disconnected");
+            }
+        }
+        catch (Exception exc)
+        {
+            var e = exc;
+        }
+    }
+
+
+    private void Alert(string msg)
+    {
+        alert = msg;
+    }
+
+    /// <summary>
+    /// Display the response in the Window
+    /// Format program code using CodeIt
+    /// </summary>
+    /// <param name="text"></param>
+    private void addTextToConvHistory(string text)
+    {
+        if (text.IndexOf("Data...Token Usage In:") == 0) return;
+
+        //Console.WriteLine(text);
+        text = CodeParser.Parse(text);
+        //Console.WriteLine(text);
+
+        //add the text to the last item in convHistory - via binding this is shown on the last conversation bubble
+        if (conversationHistory.Count > 0)
+        {
+            // Access the last convContent using index (Count - 1), if it is not assistant create assistant, text type
+            if (conversationHistory[conversationHistory.Count - 1].Role != Role.Assistant)
+            {
+                var conversationContent = new ConversationContent(Role.Assistant, ContentType.Text);
+                conversationContent.AppendTextResponse(text);
+                conversationHistory.Add(conversationContent);
+            }
+            else //add to last conv
+            {
+                conversationHistory[conversationHistory.Count - 1].AppendTextResponse(text);
+            }
+        }
+        StateHasChanged();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+            return;
+    }
+
+    //on first run
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await Connect();
+        }
+        catch (Exception exc)
+        {
+            //need to handle this so that the button is hidden? - some sort of fault tolerance
+            Debug.WriteLine(exc);
+        }
+        beginConv = true; //bool to indicate start of a new conversation and to send system prompt
+        var conversationHistory = new List<ConversationContent>();
+    }
+
+    //system prompt is not edittable
+    //it needs to be sent first 
+    //then send each subsequent user Prompt and assistant response
+    //need to send full conversation with each send 
+    //need some way oftracking total number of tokens / cost of a conversation
+
+    private async Task SendPrompt()
+    {
+        //check to see if we are connected to the hub
+        if (!IsConnected)
+        {
+            isSendingMessage = false;
+            Alert("disconnected");
+            return;
+        }
+
+
+        if (beginConv)
+        {
+            //begin conversation history            
+            var systemPromptConv = new ConversationContent(Role.System, ContentType.Text, SystemPrompt);
+            if (Env.IsDevelopment()) passphrase = "locally";
+            systemPromptConv.PassPhrase = passphrase;
+            conversationHistory.Add(systemPromptConv);
+            beginConv = false;
+        }else {     //an ongoing chat
+            var userConv = new ConversationContent(UserPrompt);
+            conversationHistory.Add(userConv);
+        }
+        var json = JsonConvert.SerializeObject(conversationHistory);
+        await textChatHubConnection.SendAsync("SendToOpenAIAPI", json, modelName);
+
+        //tried sending serialised and then deserialising UserChatMessage and list<UserChatMessage> but neither deserialise
+        //UserChatMessage userChatMessage = new UserChatMessage(userPrompt);
+        //var chatMessages = new List<UserChatMessage>();
+        //chatMessages.Add(userChatMessage);
+        //var json = JsonConvert.SerializeObject(userChatMessage);//works if serialized
+        //var USM = JsonConvert.DeserializeObject<UserChatMessage>(json);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (textChatHubConnection is not null)
+        {
+            await textChatHubConnection.DisposeAsync();
+        }
+    }
+}

@@ -1,0 +1,138 @@
+{
+  "prompts": {
+    "teachme": [
+      "Acting as an expert teacher, ask me some conceptual questions about my code, after each question give me feedback on my answer"
+    ],
+    "unpack": [
+      "Acting as an expert teacher/facilitator, explain in detail with examples to a new teacher the concept of '{ConceptName}' in language suitable for their {Age} year old students. Then, using language suitable for the students, name and describe each aspect of this content description from Version 9 of the Australian Curriculum '{Description}', keep this in reference to the concept. Then provide a list of 3 exercises and 2 games that could be used in the class to help students understand '{Description}'",
+      "Here is a content description from Version 9 of the Australian Curriculum '{Description}'. Acting as an expert teacher/facilitator, help a new teacher of {Age} year old students unpack the terminology in the content description in language suitable for the students to understand."
+    ],
+    "stepup": [
+      "Acting as an experienced teacher. Ask 15 questions that will help a new teacher highlight the differences between this content descriptor from the curriculum '{Description1}' and this content descriptor from the curriculum '{Description2}'"
+    ],
+    "unitbuilder": [
+      "Acting as an experienced teacher. Combine the descriptions from these content descriptor from the curriculum '{Description1}' and '{Description2}' and '{Description3}' into one unit of work. The unit should be for 6 lesson of 40min each. The first lesson should help students understand the concepts, the last include a unique problem solving challenge "
+    ],
+    "knowledgescope": [
+      {
+        "name": "programmer",
+        "scope": "You are an assistant that helps users learn to understand programming.  If there is program code in your response make sure that only the code is enclosed in three backticks and you interpret the language. Groups of three back ticks are not part of the code"
+      }
+    ],
+    "chatidentities": [
+      {
+        "chatidentity": "direct",
+        "prompt": "Act as an experienced teacher to help a novice student understand.  If there is program code in your response make sure that only the code is enclosed in three backticks and you interpret the language"
+      },
+      {
+        "chatidentity": "guide",
+        "prompt": "Guide me to come up with answers on my own"
+      }
+    ],
+    "problemtypes": [
+      {
+        "type": "direct",
+        "prompt": "Act as an experienced teacher to help a novice student understand.  If there is program code in your response make sure that only the code is enclosed in three backticks and you interpret the language"
+      },
+      {
+        "type": "inquiry",
+        "prompt": "Act as an experienced teacher to help a novice student understand.  If there is program code in your response make sure that only the code is enclosed in three backticks and you interpret the language"
+      },
+      {
+        "type": "problem",
+        "prompt": "Guide me to come up with answers on my own"
+      }
+    ],
+    "codehelperprompts": [
+      {
+        "keyword": "Little Hint",
+        "prompt": " Give me a very short hint about what is wrong.  Do not provide a line number. Do not decribe the location of the error.  Relate the hint to the problem being solved. Do not provide any extra information. "
+      },
+      {
+        "keyword": "Big Hint",
+        "prompt": " Give me a very helpful hint about what is wrong - do not provide any further information. "
+      },
+      {
+        "keyword": "Fix",
+        "prompt": " Help me fix this bug. "
+      },
+      {
+        "keyword": "Complete",
+        "prompt": " Help me complete this code. "
+      },
+      {
+        "keyword": "Identify Errors",
+        "prompt": " Identify if there are any errors in the code. Do not provide extra information, do to provide help, do not fix the code just identify if there aree any errors. "
+      },
+      {
+        "keyword": "Alternatives",
+        "prompt": " Show me some alternative ways to solve this problem. "
+      },
+      {
+        "keyword": "Improvements",
+        "prompt": ". Suggest some specific ways to improve this code."
+      },
+      {
+        "keyword": "Line Comments",
+        "prompt": " Annotate this code with comments to explain what each line does. "
+      },
+      {
+        "keyword": "Explanation",
+        "prompt": " Explain what this code does line by line. "
+      },
+      {
+        "keyword": "Function",
+        "prompt": " If this code is not a function make it into a function, then add the code to call it "
+      },
+      {
+        "keyword": "Conceptual",
+        "prompt": " Explain what this code does at an abstract conceptual level. "
+      },
+      {
+        "keyword": "Critique",
+        "prompt": " Critique this code like an expert reviewer would. "
+      },
+      {
+        "keyword": "Documentation",
+        "prompt": " Write a doc string for this code. "
+      },
+      {
+        "keyword": "Testing",
+        "prompt": " Write a function that has a comprehensive test for this code, and explain the testing strategy. "
+      },
+      {
+        "keyword": "Exception Handling",
+        "prompt": " Write code to add exception handling, and explain the strategy. "
+      },
+      {
+        "keyword": "Explain concept of selected code  ",
+        "prompt": "DO NOT provide extra information. Provide an abstract or conceptual explanation of the syntax of the following code within the program, DO NOT explain it in the context of the progam."
+      },
+      {
+        "keyword": "Explain purpose of selected code  ",
+        "prompt": " DO NOT provide extra information. Provide a detailed explanation of the purpose of the following code within the context of the program. "
+      },
+      {
+        "keyword": "Explain syntax of selected code  ",
+        "prompt": " DO NOT provide extra information. Provide a detailed explanation of the syntax of the following code. DO NOT EXPALIN ANYTHING ELSE "
+      },
+      {
+        "keyword": "Explain concept behind Line#",
+        "prompt": " Do not provide extra information. Line numbers start from 1 not 0.  Provide an abstract or conceptual explanation of the syntax of the following code within the program, do not explain it in the context of the progam.. "
+      },
+      {
+        "keyword": "Explain purpose of Line#",
+        "prompt": " DO NOT provide extra information. Line numbers start from 1 not 0.  Provide a detailed explanation of the purpose of the following code within the context of the program.  "
+      },
+      {
+        "keyword": "Explain syntax of Line#",
+        "prompt": " DO NOT provide extra information. Line numbers start from 1 not 0.  Provide a detailed explanation of the purpose of the following code within the context of the program.  "
+      },
+      {
+        "keyword": "Comment Line#",
+        "prompt": " Do not provide extra information. Line numbers start from 1 not 0. Provide only an inline comment that describes the purpose of the line "
+      }
+    ]
+  }
+}
+

@@ -1,0 +1,176 @@
+﻿@using Microsoft.AspNetCore.SignalR.Client
+@using OpenAI;
+@using OpenAI.Chat;
+@using Newtonsoft.Json;
+@using System.Text;
+@using AIV4.Shared;
+@using Microsoft.Fast.Components.FluentUI;
+
+@inject NavigationManager NavManager
+
+
+@if (Show)
+{
+    <div class="dialog-container">
+        <div class="dialog">
+            <div class="dialog-title">
+                <h2>Compare @CDFrom.Code with @CDTo.Code </h2>
+            </div>
+            <ConversationDisplay ConversationHistory="@conversationHistory" />
+            <div class="textMessage">
+                <textarea rows="6" @bind="userPrompt"></textarea>
+            </div>
+            <div class="button-container">
+                <button class="btn btn-secondary" @onclick="OnClose">Close</button>
+                <button class="btn btn-primary" @onclick="sendPrompt">Ask @ModelName</button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public ContentDescription CDFrom { get; set; }
+    [Parameter] public ContentDescription CDTo { get; set; }
+    [Parameter] public bool Show { get; set; }
+    [Parameter] public List<string> Prompts { get; set; }
+    [Parameter] public string ModelName { get; set; }   
+    //callback to parent that the close event has happend
+    //used to set bool to false
+    [Parameter] public EventCallback OnClose { get; set; }
+
+    //my own class for capturing conversations
+    private List<ConversationContent> conversationHistory = new List<ConversationContent>();
+
+    public string userPrompt = "";
+
+    private static HttpClient Http = new HttpClient();
+
+    //private Response responseObj = new();//the completions that comeback from OpenAI
+
+
+    public bool IsConnected => textChatHubConnection?.State == HubConnectionState.Connected;
+    private string user = "";
+    public string responses = "";
+    private HubConnection? textChatHubConnection;
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Connect();
+        //userPrompt = $@"Act as an expert teacher/facilitator.
+        // Help a new teacher of {Age} year old students understand the content description
+        // from Version 9 of the Australian Curriculum '{CD.Description}' ";
+        //need to do manual replacement -
+        userPrompt = Prompts[0]
+            .Replace("{Description1}", CDFrom.Description)
+            .Replace("{Description2}", CDTo.Description);
+    }
+
+    /// <summary>
+    /// Connect to the hub on the server
+    /// open a channel called 'MyChat'
+    /// messages back from the server arrive here in the .On<string>() event
+    /// </summary>
+    /// <returns></returns>
+    private async Task Connect()
+    {
+        try
+        {
+            textChatHubConnection = new HubConnectionBuilder()
+                .WithUrl(NavManager.ToAbsoluteUri($"/chatgpthub?user={user}"))
+                .Build();
+
+            //the 'channel' for communication
+            textChatHubConnection.On<string>("textChat", (returnText) =>
+            {
+                addTextToConvHistory(returnText);
+            });
+
+            await textChatHubConnection.StartAsync();
+        }
+        catch (Exception exc)
+        {
+            var e = exc;
+        }
+    }
+
+
+    /// <summary>
+    /// Display the response in the Window
+    /// Format program code using CodeIt
+    /// </summary>
+    /// <param name="text"></param>
+    private void addTextToConvHistory(string text)
+    {
+        //Console.WriteLine(text);
+        text = CodeParser.Parse(text);
+        //Console.WriteLine(text);
+
+        //add the text to the last item in convHistory - via binding this is shown on the last conversation bubble
+        if (conversationHistory.Count > 0)
+        {
+            // Access the last convContent using index (Count - 1), if it is not assistant create assistant, text type
+            if (conversationHistory[conversationHistory.Count - 1].Role != Role.Assistant)
+            {
+                var conversationContent = new ConversationContent(Role.Assistant, ContentType.Text);
+                conversationContent.AppendTextResponse(text);
+                conversationHistory.Add(conversationContent);
+            }
+            else //add to last conv
+            {
+                conversationHistory[conversationHistory.Count - 1].AppendTextResponse(text);
+            }
+
+        }
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// Send a single text prompt
+    /// </summary>
+    /// <returns></returns>
+    private async Task sendPrompt()
+    {
+        //if its not connected
+        if (!IsConnected)
+        {
+            return;
+        }
+
+        //every ChatMessage can have a list of content parts.
+        List<ChatMessageContentPart> contentParts = new List<ChatMessageContentPart>();
+
+        //using the static class create a content part for the text prompt - it will be of type text
+        ChatMessageContentPart promptPart = ChatMessageContentPart.CreateTextMessageContentPart(userPrompt);
+        contentParts.Add(promptPart);
+
+        //create a chat message - note polymoprphic behavior
+        ChatMessage chatMessage = UserChatMessage.CreateUserMessage(contentParts);
+
+        //add to the conversation history
+        //conversationHistory.Add(chatMessage);
+
+        var thisContent = new ConversationContent(userPrompt);
+
+        conversationHistory.Add(thisContent);
+
+        //at this stage dont send history just send a new convHistory object with only 1 conv
+        List<ConversationContent> temp = new List<ConversationContent>();
+        temp.Add(thisContent);
+
+        var json = JsonConvert.SerializeObject(temp);
+
+        //tried sending serialised and then deserialising UserChatMessage and list<UserChatMessage> but neither deserialise
+        //UserChatMessage userChatMessage = new UserChatMessage(userPrompt);
+        //var chatMessages = new List<UserChatMessage>();
+        //chatMessages.Add(userChatMessage);
+        //var json = JsonConvert.SerializeObject(userChatMessage);//works if serialized
+        //var USM = JsonConvert.DeserializeObject<UserChatMessage>(json);
+
+        //send single text request to the hub -
+        await textChatHubConnection.SendAsync("SendToOpenAIAPI", json, ModelName);
+
+    }
+
+}
