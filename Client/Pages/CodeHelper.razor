@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col-6">
                     <pre class="line-numbers">
-                    <code @onmouseup="@GetSelectedText" id="codeelement" class='language-python'>
+                        <code @onmouseup="@GetSelectedText" id="codeelement" class='language-python'>
 @programcode
                         </code>
                     </pre>
@@ -47,8 +47,12 @@
                     @* note that binding is not used for the radio but is used for the select *@
                     @foreach (var keywordprompt in keyWordPrompts)
                     {
-                        <input name="promptkeywordsel" type="radio" value="@keywordprompt.keyword" class="mx-2" @onchange="keywordSelected"/>
-                        @keywordprompt.keyword;
+                        <label class="hover-text">
+                            <input name="promptkeywordsel" type="radio" value="@keywordprompt.keyword" class="mx-2" @onchange="keywordSelected" />
+                            @keywordprompt.keyword
+                            <span class="tooltip-text">Prompt: @keywordprompt.prompt</span>
+                        </label>
+
                         @if (keywordprompt.keyword.IndexOf(lineNumberReqdTxt) > -1)
                         {
                             <select @bind="LineNumberBoundVar">

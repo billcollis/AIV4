@@ -62,7 +62,7 @@
       },
       {
         "keyword": "Identify Errors",
-        "prompt": " Identify if there are any errors in the code. Do not provide extra information, do to provide help, do not fix the code just identify if there aree any errors. "
+        "prompt": " Identify if there are any errors in the code. Do not provide extra information, do to provide help, do not fix the code just identify if there are any errors. "
       },
       {
         "keyword": "Alternatives",
