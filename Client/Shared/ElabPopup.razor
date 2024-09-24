@@ -228,7 +228,7 @@ Use this '{editableElab}'. {starterPrompt}.
         //var USM = JsonConvert.DeserializeObject<UserChatMessage>(json);
 
         //send single text request to the hub -
-        await textChatHubConnection.SendAsync("SendToOpenAIAPI", json, ModelName);
+        await textChatHubConnection.SendAsync("SendToBackEndHub", json, ModelName);
 
     }
 

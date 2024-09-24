@@ -238,7 +238,7 @@
         var json = JsonConvert.SerializeObject(temp);
 
         //send single text request to the hub -
-        await textChatHubConnection.SendAsync("SendToOpenAIAPI", json, ModelName);
+        await textChatHubConnection.SendAsync("SendToBackEndHub", json, ModelName);
         StateHasChanged();
     }
 }

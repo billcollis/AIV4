@@ -228,7 +228,7 @@
             conversationHistory.Add(userConv);
         }
         var json = JsonConvert.SerializeObject(conversationHistory);
-        await textChatHubConnection.SendAsync("SendToOpenAIAPI", json, modelName);
+        await textChatHubConnection.SendAsync("SendToBackEndHub", json, modelName);
 
         //tried sending serialised and then deserialising UserChatMessage and list<UserChatMessage> but neither deserialise
         //UserChatMessage userChatMessage = new UserChatMessage(userPrompt);

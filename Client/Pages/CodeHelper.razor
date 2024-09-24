@@ -73,7 +73,20 @@
             </div>
             <div class=" row">
                 <div class="col-3">
-                    <p class=" fw-semibold"> Code Helper by Dr. Bill Collis (using @modelName) </p>
+                    <p class=" fw-semibold"> Code Helper by Bill Collis (using @modelName) </p>
+                </div>
+                <div class="col-3">
+                    @if (Env.IsDevelopment())
+                    {
+                        <label for="pwd">No need to enter OpenAI API key:</label>
+                        <input type="password" maxlength="60" @bind-value=passphrase style="width:100%" />
+
+                    }
+                    else
+                    {
+                        <label for="pwd">Enter your OpenAI API Key:</label>
+                        <input type="password" maxlength="60" @bind-value=passphrase style="width:100%" />
+                    }
                 </div>
                 <div class="col-3">
                     <div>
@@ -110,7 +123,7 @@
     private HubConnection? textChatHubConnection;
     public bool IsConnected => textChatHubConnection?.State == HubConnectionState.Connected;
     private string user = "";
-
+    private string passphrase = "";
     //my own class for capturing conversations
     private List<ConversationContent> conversationHistory = new List<ConversationContent>();
 
@@ -132,7 +145,9 @@
         }
     }
 
-
+    private string statsSubstring = "Data...Token";
+    private int tokensIn = 0;
+    private int tokensOut = 0;
 
     private string systemPrompt = "You are a super smart helpful programming expert, helping a new programmer. Provide only the information asked for and no extra information";
     private string prompt = "";
@@ -321,23 +336,22 @@ print('The solutions are{0} and {1}'.format(sol1,sol2))";
         if (conversationHistory.Count==0) //this causes the system prompt to only be shown once in the displa
             conversationHistory.Add(systemConv);
         //string marked = MarkDown.Parse(message);
-        var thisConv = new ConversationContent(message);
-        conversationHistory.Add(thisConv);
+        var thisConversation = new ConversationContent(message);
+        thisConversation.PassPhrase = passphrase;
+        conversationHistory.Add(thisConversation);
 
         //minimal send - do not send any previous conversations. 
         //just the system prompt and the current request from the user
         var conversationToSend = new List<ConversationContent>();
         conversationToSend.Add(systemConv);
-        conversationToSend.Add(thisConv);
+        conversationToSend.Add(thisConversation);
 
         var json = JsonConvert.SerializeObject(conversationToSend);
-        await textChatHubConnection.SendAsync("SendToOpenAIAPI", json, modelName);
+        await textChatHubConnection.SendAsync("SendToBackEndHub", json, modelName);
 
     }
 
-    private string statsSubstring = "Data...Token";
-    private int tokensIn = 0;
-    private int tokensOut = 0;
+
 
     /// <summary>
     /// get the token stats for this stream,

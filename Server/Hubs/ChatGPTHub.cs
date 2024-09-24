@@ -16,6 +16,7 @@ using NeoSmart.SecureStore;
 //using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
+using System.Linq;
 
 namespace AIV4.Server.Hubs
 {
@@ -42,7 +43,7 @@ namespace AIV4.Server.Hubs
         /// </summary>
         /// <param name="message">JSON serialized list of conversation contents.</param>
         /// <param name="model">The model name to use with the API.</param>
-        public async Task SendToOpenAIAPI(string message, string model)
+        public async Task SendToBackEndHub(string message, string model)
         {
             this._model = model;
 
@@ -82,29 +83,37 @@ namespace AIV4.Server.Hubs
             var chatMessages = ConvertToChatMessages(conversation);
 
             // send chat messages to OpenAI API and collect streamed responses
-            await StreamChatMessagesToOpenAIAsync(chatMessages);
+            await SendChatMessagesToOpenAIAsync(chatMessages);
         }
 
 
         private List<ChatMessage> ConvertToChatMessages(List<ConversationContent> conversation)
         {
-            //// Using LINQ to transform ConversationContent to ChatMessage
-            //return conversation
-            //    .Where(cc => cc.ContentType == ContentType.Text) 
-            //    .Select(cc => cc.Role switch
-            //    {
-            //        Role.System => new SystemChatMessage(cc.Text),
-            //        Role.User => new UserChatMessage(cc.Text),
-            //        Role.Assistant => new AssistantChatMessage(cc.Text),
-            //        _ => throw new ArgumentOutOfRangeException()
-            //    }).ToList();
+            //ty some linq
+            //var chatMessages = conversation
+                //.Where(cc => cc.ContentType == ContentType.Text)
+                //.Select(cc =>
+                //{
+                //    switch (cc.Role)
+                //    {
+                //        case Role.System:
+                //            return new SystemChatMessage(cc.Text);
+                //        case Role.User:
+                //            return new UserChatMessage(cc.Text);
+                //        case Role.Assistant:
+                //            return new AssistantChatMessage(cc.Text);
+                //        default:
+                //            throw new ArgumentOutOfRangeException();
+                //    }
+                //})
+                //.ToList();
+
             var chatMessages = new List<ChatMessage>();
 
             foreach (var cc in conversation)
             {
                 if (cc.ContentType == ContentType.Text)
                 {
-                    //chatMessagesContent.Add(ChatMessageContentPart.CreateTextMessageContentPart(cc.Text));                    
                     switch (cc.Role)
                     {
                         case Role.System:
@@ -118,7 +127,6 @@ namespace AIV4.Server.Hubs
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
-
                     }
                 }
             }
@@ -152,7 +160,7 @@ namespace AIV4.Server.Hubs
         }
 
 
-        private async Task StreamChatMessagesToOpenAIAsync(List<ChatMessage> chatMessages)
+        private async Task SendChatMessagesToOpenAIAsync(List<ChatMessage> chatMessages)
         {
             var asyncChatUpdates = _client.CompleteChatStreamingAsync(chatMessages);
 
@@ -166,13 +174,20 @@ namespace AIV4.Server.Hubs
             }
             catch (Exception ex)
             {
-                SendMessageToClientAsync(ex.Message);
+                await SendMessageToClientAsync(ex.Message);
             }
 
         }
 
 
 
+        /// <summary>
+        /// Collect streamed - token - responses from OpenAI API
+        /// Wait for new line before sending them 
+        /// this could be done in the front end in each app to get the users browser to do the work
+        /// </summary>
+        /// <param name="chatUpdate"></param>
+        /// <returns></returns>
         private async Task HandleChatUpdateAsync(StreamingChatCompletionUpdate chatUpdate)
         {
             foreach (var contentPart in chatUpdate.ContentUpdate)
@@ -201,7 +216,12 @@ namespace AIV4.Server.Hubs
         }
 
 
-
+        /// <summary>
+        /// Send the response from OpenAI back to the calling app
+        /// note: Clients.Caller not Clients.All
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         private async Task SendMessageToClientAsync(string message)
         {
             await Clients.Caller.SendAsync("textChat", message);
