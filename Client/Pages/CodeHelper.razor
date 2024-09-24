@@ -329,10 +329,9 @@ print('The solutions are{0} and {1}'.format(sol1,sol2))";
         }
 
 
-        //keep the list of requested conversations to display to the user
+        //keep the list of conversations to display to the user
         var systemConv = new ConversationContent(Role.System, ContentType.Text, systemPrompt);
-
-        systemConv.PassPhrase = "locally";
+        systemConv.PassPhrase = passphrase;
         if (conversationHistory.Count==0) //this causes the system prompt to only be shown once in the displa
             conversationHistory.Add(systemConv);
         //string marked = MarkDown.Parse(message);
@@ -340,7 +339,7 @@ print('The solutions are{0} and {1}'.format(sol1,sol2))";
         thisConversation.PassPhrase = passphrase;
         conversationHistory.Add(thisConversation);
 
-        //minimal send - do not send any previous conversations. 
+        //minimal send to hub justthe most recent request/conversation. 
         //just the system prompt and the current request from the user
         var conversationToSend = new List<ConversationContent>();
         conversationToSend.Add(systemConv);
