@@ -23,14 +23,53 @@
         </div>
     </div>
 
-    <div class="accordion" id="accordionConcepts">
+    @* original code *@
+    <FluentAccordion>
+        @foreach (var concept in DTCurriculum.Concepts)
+        {
+            <FluentAccordionItem class="h5 text-light bg-secondary" Heading="@concept.ConceptName">
+                <div class="row row-cols-6 g-2 text-dark">
+                    <div class="col h6">Foundation</div>
+                    <div class="col h6">1-2</div>
+                    <div class="col h6">3-4</div>
+                    <div class="col h6">5-6</div>
+                    <div class="col h6">7-8</div>
+                    <div class="col h6">9-10</div>
+                    @{
+                        var CDs = concept.FlattenedCDs;
+                        foreach (var cd in CDs)
+                        {
+                            var Value = cd.Code;
+                            bool Checked = false;
+                            <div class="card h6">
+                                @if (cd.Code != "")
+                                {
+                                    <div class="checkbox">
+                                        <label for="cb-@cd.Code">
+                                            <span>@cd.Code</span>
+                                        </label>
+                                        <input type="checkbox" checked="@Checked" id="cb-@cd.Code" value="cb-@cd.Code" class="checkbox float-end"
+                                               @onchange="eventArgs => { CheckboxClicked(Value, eventArgs.Value); }">
+                                    </div>
+                                    <div>@cd.Description</div>
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+            </FluentAccordionItem>
+        }
+    </FluentAccordion>
+
+    @* code under dev to add facility to stop accordions being closed when an item in them is selected*@
+ @*    <div class="accordion" id="accordionConcepts">
         @for (int i=0; i<DTCurriculum.Concepts.Count; i++)
         {
             int indx = i;
             accordionButtonRef.Add(new ElementReference());
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panel-heading@i">
-                    <button class="accordion-button collapsed" @ref=accordionButtonRef[indx] type="button" data-bs-toggle="@IsCollapsable[i]" data-bs-target="#panel-@i" aria-expanded="false" aria-controls="panel-@i"
+                    <button class="accordion-button collapsed" type="button"  aria-expanded="false" aria-controls="panel-@i"
                             @onclick="eventArgs => { 
                                 accordionClick(indx); 
                             }">
@@ -75,51 +114,8 @@
             </div>          
         }
      </div>
-
-   <section>
-        @*    <FluentAccordion>
-        @foreach (var concept in DTCurriculum.Concepts)
-        {
-        <FluentAccordionItem class="h5 text-dark bg-secondary" onselect="" Heading="@concept.ConceptName" >
-        <div class="row row-cols-6 g-2 text-dark">
-        <div class="col h6">Foundation</div>
-        <div class="col h6">1-2</div>
-        <div class="col h6">3-4</div>
-        <div class="col h6">5-6</div>
-        <div class="col h6">7-8</div>
-        <div class="col h6">9-10</div>
-        @{
-        var CDs = concept.FlattenedCDs;
-        foreach (var cd in CDs)
-        {
-        var Value = cd.Code;
-        bool Checked = false;
-        <div class="card h6">
-        @if (cd.Code != "")
-        {
-        <div class="checkbox">
-        <label for="cb-@cd.Code">
-        <span>@cd.Code</span>
-        </label>
-        <input type="checkbox" checked="@Checked" id="cb-@cd.Code" value="cb-@cd.Code" class="checkbox float-end"
-        @onchange="eventArgs => { CheckboxClicked(Value, eventArgs.Value); }"
-        >
-        </div>
-        <div>@cd.Description</div>
-        }
-        </div>
-        }
-        }
-        </div>
-        </FluentAccordionItem>
-        }
-        </FluentAccordion>
-
-        *@
-
-   </section>
- 
-    <p class="text-end fw-semibold">@AppName by Dr. Bill Collis (using @modelName)</p>
+ *@
+   <p class="text-end fw-semibold">@AppName by Bill Collis (using @modelName)</p>
 </div>
 @* 
  The modal popup 
