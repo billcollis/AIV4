@@ -31,4 +31,10 @@
     <_ContentIncludedByDefault Remove="Pages\CodeHelper.razor" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Pages\JellyBeans.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
+
 </Project>

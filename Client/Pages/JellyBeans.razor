@@ -1,4 +1,4 @@
-﻿@page "/codehelper"
+﻿@page "/jellybeans"
 @layout EmptyLayout
 
 
@@ -22,7 +22,7 @@
 <PageTitle>@appName</PageTitle>
 
 <div class="container-fluid">
-    <div>
+    <div class="mychatdialog">
         <div class="dialog-title">
             <h2>@appName @alert</h2>
 
@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col-6">
                     <pre class="line-numbers">
-                        <code @onmouseup="@GetSelectedText" id="codeelement" class='language-python'>
+                        <code @onmouseup="@GetSelectedText" id="codeelement" class='language-java'>
 @programcode
                         </code>
                     </pre>
@@ -120,7 +120,7 @@
 
     private string selectedCode = "";
 
-    private string appName = "CodeHelper";
+    private string appName = "JellyBeans";
     private string modelName = "gpt-4o-mini"; // "gpt-4o";
     string alert = "disconnected";
 
@@ -180,15 +180,35 @@
         NavManager.TryGetQueryString<string>("code", out programcode); //https://chrissainty.com/working-with-query-strings-in-blazor/
         if (programcode == null || programcode == "")
         {
-            programcode = @"#demo program
-import cmath
-a = 1
-b = 2
-c = 6
-d=(b**2) - (4*a*c)
-sol1=(-b+cmath.sqrt(d))/(2*a)
-sol2=(-b-cmath.sqrt(d))/(2*a)
-print('The solutions are{0} and {1}'.format(sol1,sol2))";
+            programcode = @"//demo program
+public class MainClass {
+  public static void main(String[] args) {
+       //define A as a constant
+       double A_GRADE = 93.0;
+       
+       // Define the 5 marks as constants  
+        final int TEST_1 = 95;
+        final int ASSIGNMENT_1 = 92;
+        final int ASSIGNMENT_2 = 91;
+        final int TEST_2 = 94;
+        final int EXAM = 94;
+
+        // Calculate the sum of the marks
+        int total = TEST_1 + ASSIGNMENT_1 + ASSIGNMENT_2 + TEST_2 + EXAM;
+
+        // Calculate the average
+        int average = total / 5;
+
+        // Print the average
+        System.out.println(""Average percentage: "" + average + ""%"");
+        if (average > A_GRADE){
+          System.out.println(""A+ student, you ate the course"");
+          System.out.println(""you get a bag of jelly beans from the dean"");
+        }else{
+          System.out.println(""Sorry no jellybeans for you, sux eh!"");
+        }
+  }
+}";
         }
         codearr = programcode.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
         NavManager.TryGetQueryString<string>("prompt", out prompt);
@@ -312,11 +332,11 @@ print('The solutions are{0} and {1}'.format(sol1,sol2))";
 
         //build the message - identity - code - prompt(s)
         message = "";
-        message += "For this progam code";
+        message += "For this progam.";
         message += "`";
         message += programcode;
         message += "`";
-        message += "   \r\n";
+        message += "\r\n";
 
         var foundKeywordPrompt = keyWordPrompts.FirstOrDefault(p => p.keyword.Equals(selectedKeyword, StringComparison.OrdinalIgnoreCase));
         //get the specific prompt
