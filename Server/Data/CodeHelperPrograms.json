@@ -1,0 +1,14 @@
+{
+  "codehelperprograms": [
+    {
+      "name": "jellybeans",
+      "language": "java",
+      "code": "//demo program\npublic class MainClass {\n  public static void main(String[] args) {\n       //define A as a constant\n       double A_GRADE = 93.0;\n       \n       // Define the 5 marks as constants  \n        final int TEST_1 = 95;\n        final int ASSIGNMENT_1 = 92;\n        final int ASSIGNMENT_2 = 91;\n        final int TEST_2 = 94;\n        final int EXAM = 94;\n        // Calculate the sum of the marks\n        int total = TEST_1 + ASSIGNMENT_1 + ASSIGNMENT_2 + TEST_2 + EXAM;\n        // Calculate the average\n        int average = total / 5;\n        // Print the average\n        System.out.println(\"\"Average percentage: \"\" + average + \"%\");\n        if (average > A_GRADE){\n          System.out.println(\"\"A+ student, you ate the course\");\n          System.out.println(\"you get a bag of jelly beans from the dean\");\n        }else{\n          System.out.println(\"Sorry no jellybeans for you, sux eh!\");\n        }\n  }\n}"
+    },
+    {
+      "name": "quadraticroots",
+      "language": "python",
+      "code": "import cmath\na = 1\nb = 2\nc = 6\nd=(b**2) - (4*a*c)\nsol1=(-b+cmath.sqrt(d))/(2*a)\nsol2=(-b-cmath.sqrt(d))/(2*a)\nprint('The solutions are{0} and {1}'.format(sol1,sol2))"
+    }
+  ]
+}

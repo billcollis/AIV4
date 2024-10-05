@@ -1,6 +1,8 @@
 ﻿using AIV4.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net;
+using static System.Net.WebRequestMethods;
 
 namespace AITooling.Server.Controllers
 {
@@ -14,7 +16,10 @@ namespace AITooling.Server.Controllers
             PromptsModel allprompts;
             try
             {
-                var json = System.IO.File.ReadAllText("Data\\Prompts.json");
+                var url = "https://drive.google.com/file/d/1WH08PK8KIqyeXm76Xu4tl4FS6eFNIu78/view?usp=sharing";
+                var textfromfile = new HttpClient().GetStringAsync(url); 
+
+                var json = System.IO.File.ReadAllText("Data\\Prompts.json");  // https://drive.google.com/file/d/1WH08PK8KIqyeXm76Xu4tl4FS6eFNIu78/view?usp=sharing
                 allprompts = JsonConvert.DeserializeObject<PromptsModel>(json);
                 return allprompts;
             }

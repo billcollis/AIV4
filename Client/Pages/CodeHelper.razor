@@ -1,4 +1,4 @@
-﻿@page "/codehelper"
+﻿@page "/codehelper/{ProgramName}"
 @layout EmptyLayout
 
 
@@ -11,32 +11,33 @@
 @using Microsoft.Fast.Components.FluentUI
 @using Microsoft.AspNetCore.Components.WebAssembly.Hosting
 
-
 @inject IWebAssemblyHostEnvironment Env
 @inject HttpClient Http
 @inject NavigationManager NavManager
 @inject IJSRuntime JSRuntime
-
-@* this page is used on the Grok page *@
 
 <PageTitle>@appName</PageTitle>
 
 <div class="container-fluid">
     <div>
         <div class="dialog-title">
-            <h2>@appName @alert</h2>
-
+            <h2>@appName @alert </h2>
+            @if (string.IsNullOrEmpty(ProgramName))
+            {
+                @:None
+            }
+            else
+            {
+                @ProgramName
+            }
         </div>
-
-        <ConversationDisplay 
-            ConversationHistory="@conversationHistory" />
 
         <div class="">
             <div class="row">
                 <div class="col-6">
                     <pre class="line-numbers">
-                        <code @onmouseup="@GetSelectedText" id="codeelement" class='language-python'>
-@programcode
+                        <code @onmouseup="@GetSelectedText" id="codeelement" class='language-@codeHelperProgram.language'>
+@codeHelperProgram.code
                         </code>
                     </pre>
                 </div>
@@ -106,6 +107,9 @@
                 }
              </div>
         </div>
+        <ConversationDisplay ConversationHistory="@conversationHistory" />
+
+
     </div>
 </div>
 
@@ -117,8 +121,15 @@
     // /codehelper?code=import cmath%0A%0Aa = 1%0Ab = 5%0Ac = 6%0Ad = (b**2) - (4*a*c)%0Asol1 = (-b-cmath.sqrt(d))/(2*a)%0Asol2 = (-b+cmath.sqrt(d))/(2*a)%0Aprint('The solution are {0} and {1}'.format(sol1,sol2))
     //for some reason when the above is called the + dissappears!!!
 
-
+    [Parameter]
+    public string ProgramName { get; set; }
+    //private string programcode = "print('here is some a demo')";
+    //private string language = "python";
     private string selectedCode = "";
+    //private string programName = "jellybeans";
+
+    private List<Codehelperprompt> keyWordPrompts = new();
+    private Codehelperprogram codeHelperProgram = new();
 
     private string appName = "CodeHelper";
     private string modelName = "gpt-4o-mini"; // "gpt-4o";
@@ -132,7 +143,7 @@
     private List<ConversationContent> conversationHistory = new List<ConversationContent>();
 
 
-    private string programcode = "print('some code')";
+    //
     private string[] codearr = new string[0];
     private string selectedKeyword = "";
     private string lineNumberReqdTxt = "Line#";// if the prompt contains this string then we will add select with line number and send line number as well
@@ -175,7 +186,7 @@
 
 
     //https://chrissainty.com/working-with-query-strings-in-blazor/
-    void GetQueryStringValues()
+@*     void GetQueryStringValues()
     {
         NavManager.TryGetQueryString<string>("code", out programcode); //https://chrissainty.com/working-with-query-strings-in-blazor/
         if (programcode == null || programcode == "")
@@ -190,20 +201,22 @@ sol1=(-b+cmath.sqrt(d))/(2*a)
 sol2=(-b-cmath.sqrt(d))/(2*a)
 print('The solutions are{0} and {1}'.format(sol1,sol2))";
         }
+
         codearr = programcode.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
         NavManager.TryGetQueryString<string>("prompt", out prompt);
-    }
+    } *@
 
-
-    private List<Codehelperprompt> keyWordPrompts = new();
+ 
     protected override async Task OnInitializedAsync()
     {
-        GetQueryStringValues();
-        NavManager.LocationChanged += HandleLocationChanged;
+        //GetQueryStringValues();
+        //NavManager.LocationChanged += HandleLocationChanged;
         try
         {
             await Connect();
             keyWordPrompts = await Http.GetFromJsonAsync<List<Codehelperprompt>>("PromptKeywords");// Get from PromptKeywordsController;
+            codeHelperProgram = await Http.GetFromJsonAsync<Codehelperprogram>("CodeHelperPrograms?programName=" + ProgramName);
+
         }
         catch (Exception exc)
         {
@@ -214,7 +227,7 @@ print('The solutions are{0} and {1}'.format(sol1,sol2))";
 
     private void HandleLocationChanged(object sender, LocationChangedEventArgs e)
     {
-        GetQueryStringValues();
+        //GetQueryStringValues();
         StateHasChanged();
     }
 
@@ -314,7 +327,7 @@ print('The solutions are{0} and {1}'.format(sol1,sol2))";
         message = "";
         message += "For this progam code";
         message += "`";
-        message += programcode;
+        message += codeHelperProgram.code;
         message += "`";
         message += "   \r\n";
 

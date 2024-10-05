@@ -34,6 +34,19 @@ namespace AIV4.Shared
 
     }
 
+    public class CodeHelperPrograms
+    {
+        public List<Codehelperprogram> codehelperprograms = new ();  
+    }
+
+    public class Codehelperprogram
+    {
+        public string? name { get; set; }
+        public string? language { get; set; }
+        public string? code { get; set; }
+    }
+
+
     public class Knowledgescope
     {
         public string? name { get; set; }

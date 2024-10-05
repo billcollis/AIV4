@@ -14,6 +14,8 @@ namespace AIV4.Server.Controllers
             PromptsModel allprompts;
             try
             {
+                
+
                 //var json = System.IO.File.ReadAllText($"{System.IO.Directory.GetCurrentDirectory()}{@"data\\AUCurrV9a.json"}");
                 var json = System.IO.File.ReadAllText("Data\\Prompts.json");
                 allprompts = JsonConvert.DeserializeObject<PromptsModel>(json);
@@ -38,5 +40,6 @@ namespace AIV4.Server.Controllers
             }
 
         }
+
     }
 }

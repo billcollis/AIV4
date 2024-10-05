@@ -54,7 +54,7 @@
       },
       {
         "keyword": "Fix",
-        "prompt": " Help me fix this bug. "
+        "prompt": " Help me fix this bug. Then give me a really full explanation of the fix and why it was necessary"
       },
       {
         "keyword": "Complete",
@@ -94,7 +94,7 @@
       },
       {
         "keyword": "Documentation",
-        "prompt": " Write a doc string for this code. "
+        "prompt": " Write professional documentation for the code giving a conceptual explantion of what the code does. "
       },
       {
         "keyword": "Testing",

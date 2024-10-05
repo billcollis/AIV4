@@ -13,6 +13,10 @@ namespace AIV4.Server.Controllers
             PromptsModel allprompts;
             try
             {
+
+                var url = "https://drive.google.com/file/d/1WH08PK8KIqyeXm76Xu4tl4FS6eFNIu78/view?usp=sharing";
+                var textfromfile = new HttpClient().GetStringAsync(url);
+
                 //var json = System.IO.File.ReadAllText($"{System.IO.Directory.GetCurrentDirectory()}{@"data\\AUCurrV9a.json"}");
                 var json = System.IO.File.ReadAllText("Data\\Prompts.json");
                 allprompts = JsonConvert.DeserializeObject<PromptsModel>(json);
