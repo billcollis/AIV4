@@ -76,8 +76,8 @@
     private string appName = "Curry-Up";
     string alert = "disconnected";
 
-    private HubConnection? textChatHubConnection;
-    public bool IsConnected => textChatHubConnection?.State == HubConnectionState.Connected;
+    private HubConnection? hubConnection;
+    public bool IsConnected => hubConnection?.State == HubConnectionState.Connected;
     private string user = "";
 
     private string userPrompt = "";
@@ -85,7 +85,7 @@
     // private static HttpClient Http = new HttpClient();
 
     // public string responses = "";
-    private HubConnection? hubConnection;
+
 
     private string passphrase = "";
 
@@ -107,12 +107,12 @@
     {
         try
         {
-            textChatHubConnection = new HubConnectionBuilder()
-                .WithUrl(NavManager.ToAbsoluteUri($"/chatgpthub?user={user}")) //not using username currently
+            hubConnection = new HubConnectionBuilder()
+                .WithUrl(NavManager.ToAbsoluteUri($"/openaihub?user={user}")) //not using username currently
                 .Build();
 
             //the 'channel'(?) for communication
-            textChatHubConnection.On<string>("textChat", (message) =>
+            hubConnection.On<string>("ai_response", (message) =>
             {
                 if (getStats(message)) return;//dont add stats to conv history
                 addTextToConvHistory(message);
@@ -120,7 +120,7 @@
                 StateHasChanged();
             });
 
-            await textChatHubConnection.StartAsync();
+            await hubConnection.StartAsync();
             if (IsConnected)
             {
                 Alert(""); //blank messge
@@ -149,7 +149,7 @@
     /// <returns></returns>
     private bool getStats(string text)
     {
-        //get stats - note specific formatting of the string in ChatGPTHub, starts with  "Data...Token Usage"
+        //get stats - note specific formatting of the string in openAIHub, starts with  "Data...Token Usage"
         int indx = text.IndexOf(statsSubstring);
         try
         {            
@@ -238,7 +238,7 @@
         var json = JsonConvert.SerializeObject(temp);
 
         //send single text request to the hub -
-        await textChatHubConnection.SendAsync("SendToBackEndHub", json, ModelName);
+        await hubConnection.SendAsync("OpenAiService", json, ModelName);
         StateHasChanged();
     }
 }

@@ -1,0 +1,230 @@
+﻿@page "/imagegenerator"
+@layout EmptyLayout
+
+@using AIV4.Shared
+@using Microsoft.AspNetCore.SignalR.Client
+@using Newtonsoft.Json
+@using OpenAI;
+@using OpenAI.Chat;
+@using OpenAI.Models;
+@using OpenAI.Images;
+@using System.Configuration;
+@using Microsoft.Fast.Components.FluentUI;
+@using Microsoft.Extensions.Configuration
+@using System.ClientModel
+@using Microsoft.AspNetCore.Components.WebAssembly.Hosting
+@using System.Diagnostics
+
+@inject IWebAssemblyHostEnvironment Env
+@inject IJSRuntime JSRuntime
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+
+
+<PageTitle>Image Generator</PageTitle>
+
+<div class="container-fluid">
+    <div class="mychatdialog">
+        <div class="dialog-title">
+            <h2>@appName using @imageModel</h2>
+        </div>
+        <h5><b>Given a prompt, the model will return a generated image</b></h5>
+        <FluentRadioGroup Name="imagesizes" @bind-Value="_imageSize" Label="Select a size">
+            <FluentRadio Value=1>256x256</FluentRadio>
+            <FluentRadio Value=2>512x512</FluentRadio>
+            <FluentRadio Value=3>1024x1024</FluentRadio>
+        </FluentRadioGroup>
+        <div class="col-3">
+            @if (Env.IsDevelopment())
+            {
+                <label for="pwd">No need to enter OpenAI API key:</label>
+                <input type="password" maxlength="60" @bind-value=passphrase style="width:100%" />
+            }
+            else
+            {
+                <label for="pwd">Enter your OpenAI API Key:</label>
+                <input type="password" maxlength="60" @bind-value=passphrase style="width:100%" />
+            }
+        </div>
+        <div class="row">
+            <div class="col-sm-10">
+                <input type="text"
+                       class="form-control"
+                       placeholder=""
+                       @bind="prompt" />
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-success" 
+                    @onclick="ImageGeneratorService">
+                    Generate
+                </button>
+            </div>
+        </div>
+        <br />
+        <div class="d-flex justify-content-center">
+            @if (_isLoading)
+            {  
+                <div class="spinner" role="status">
+                </div>
+            }
+            else
+            {
+                <img src="@imageSRC" width="@imageWidth+30" height="@imageHeight+30" style="padding:0px; border:0px; margin:0px "/>
+                @* <p>@((MarkupString)GeneratedImage)</p> *@
+            }
+        </div>
+    </div>
+</div>
+<p style="color:red">@errorMessage</p>
+
+@code {
+    private string appName = "Image  Generator";
+    private string user = string.Empty;
+    string apikey = string.Empty;
+    string errorMessage = string.Empty;
+    string prompt = "a cat looking in a mirror"; //dall-e-2 max length is 1000, for dall-e-3 mac length is 4000
+    string imageSRC = string.Empty; //URI or bytes
+    string imageModel = "dall-e-2";
+    int imageWidth = 256;
+    int imageHeight = 256;
+    int _imageSize = 0;
+    bool _isLoading = false;
+    private string passphrase = "";
+    private HubConnection? hubConnection;
+    private bool IsConnected => hubConnection?.State == HubConnectionState.Connected;
+
+    ClientResult<GeneratedImage>? generatedImage;
+    ImageClient? client;
+    // GeneratedImageQuality imageQuality = GeneratedImageQuality.Standard; //high only for dall-e-3
+    // GeneratedImageSize imageSize = GeneratedImageSize.W256xH256; //dall-e-2  .02c each
+    // GeneratedImageStyle imageStyle = GeneratedImageStyle.Natural; //only for dall-e-3 vivid or natural
+    // GeneratedImageFormat imageFormat = GeneratedImageFormat.Uri; //only valid for 60 mins after generation   
+
+    //default options
+    ImageGenerationOptions options = new()
+        {
+            Quality = GeneratedImageQuality.Standard,
+            Size = GeneratedImageSize.W256xH256,
+            Style = GeneratedImageStyle.Natural,
+            ResponseFormat = GeneratedImageFormat.Uri
+        };
+
+    //dall-e-3 options
+    /// <summary>
+    /// what happens initially when the razor is loaded
+    /// connect to the hub
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        await Connect();
+    }
+
+
+    /// <summary>
+    /// Connect to the hub on the server
+    /// open a channel called 'MyChat'
+    /// messages back from the server arrive here in the .On<string>() event
+    /// </summary>
+    /// <returns></returns>
+    private async Task Connect()
+    {
+        try
+        {
+            hubConnection = new HubConnectionBuilder()
+                .WithUrl(NavManager.ToAbsoluteUri($"/openaihub?user={user}"))
+                .Build();
+
+            //the 'channel' for communication with the hub - returns the url 
+            hubConnection.On<string>("ai_response", (returnURI) =>
+            {
+                _isLoading = false;
+                displayImage(returnURI);
+            });
+
+            await hubConnection.StartAsync();
+        }
+        catch (Exception exc)
+        {
+            var e = exc;
+        }
+    }
+
+    private void displayImage(string absoluteURI)
+    {
+        imageSRC = absoluteURI;
+        StateHasChanged();
+    }
+
+    public async Task ImageGeneratorService()
+    {
+        StateHasChanged();
+        //not actually used yet - it oly does 256x356 in the hub
+        switch (_imageSize)
+        {
+            case 1: //dall-e-2
+                //imageSize = GeneratedImageSize.W256xH256;
+                imageWidth = 256;
+                imageHeight = 256;
+                break;
+            case 2: //dall-e-2
+                //imageSize = GeneratedImageSize.W512xH512;
+                imageWidth = 512; 
+                imageHeight = 512;
+                break;
+            case 3: //dall-e-2/3
+                //imageSize = GeneratedImageSize.W1024xH1024;
+                imageWidth = 1024;
+                imageHeight = 1024;
+                break;
+            case 4: //dall-e-3
+                //imageSize = GeneratedImageSize.W1792xH1024;
+                imageWidth = 1792;
+                imageHeight = 1024;
+                break;
+            case 5: //dall-e-3
+                //imageSize = GeneratedImageSize.W1024xH1792;
+                imageWidth = 1024;
+                imageHeight = 1792;
+                break;
+            default:
+                //imageSize = GeneratedImageSize.W256xH256;
+                imageWidth = 256;
+                imageHeight = 256;
+                break;
+        }
+
+        try
+        {
+            StateHasChanged();
+            errorMessage = string.Empty;
+            _isLoading = true;
+            ConversationContent conversation = new ConversationContent(
+                Role.Assistant, ContentType.Image, prompt
+            );
+            //defaults
+            conversation.ImageResponseFormat = "Uri";
+            conversation.ImageQuality = "Standard";
+            conversation.ImageStyle = "Natural";
+            conversation.ImageSize = _imageSize.ToString();
+            conversation.PassPhrase = passphrase;
+            var listToSend = new List<ConversationContent>();
+            listToSend.Add(conversation);
+
+            //send image gen request to hub
+            var json = JsonConvert.SerializeObject(listToSend);
+            await hubConnection.SendAsync("OpenAiService", json, imageModel);
+
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+        // finally
+        // {
+        //     //_isLoading = false;
+        //     StateHasChanged();
+        // }
+    }
+}

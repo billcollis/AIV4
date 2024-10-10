@@ -5,6 +5,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using OpenAI.Images;
 
 namespace AIV4.Shared
 {
@@ -16,11 +17,16 @@ namespace AIV4.Shared
         public string PassPhrase { get; set; }
 
         public string UserName { get; set; }
-        public ContentType ContentType { get; set; } = ContentType.Text;//defaults to text
+        public ContentType ContentType { get; set; } = ContentType.Text;    //defaults to text
         public string Text {
             get {  return TextContent.ToString(); }
         }
 
+
+        public string ImageSize { get; set; } = "256x256";
+        public string ImageQuality { get; set; } = "Standard";  //or High
+        public string ImageStyle { get; set; } = "Natural";
+        public string ImageResponseFormat { get; set; } = "Uri";
 
         public ConversationContent()
         {
@@ -61,26 +67,6 @@ namespace AIV4.Shared
         {
             TextContent.Append(text);
         }
-
-        //public string ToJson()
-        //{
-        //    var json = JsonConvert.SerializeObject(this);
-        //    return json; 
-        //}
-        //public ConversationContent FromJson(string json)
-        //{
-        //    ConversationContent newContent = new ConversationContent();
-        //    try 
-        //    {
-        //        newContent = JsonConvert.DeserializeObject<ConversationContent>(json);
-        //    }
-        //    catch (Exception ex) 
-        //    {
-        //        var exc = ex;
-        //    }
-        //    return newContent;
-        //}
-
     }
 
     public enum Role
@@ -91,9 +77,8 @@ namespace AIV4.Shared
     }
     public enum ContentType
     {
-        Text,      // Represents text chat
-        Audio,   
-        Image    
+        Text,   // Represents text chat
+        Image   //image generation required
     }
 
 }

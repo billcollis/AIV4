@@ -124,8 +124,8 @@
     private string modelName = "gpt-4o-mini"; // "gpt-4o";
     string alert = "disconnected";
 
-    private HubConnection? textChatHubConnection;
-    public bool IsConnected => textChatHubConnection?.State == HubConnectionState.Connected;
+    private HubConnection? hubConnection;
+    public bool IsConnected => hubConnection?.State == HubConnectionState.Connected;
     private string user = "";
     private string passphrase = "";
     //my own class for capturing conversations
@@ -240,7 +240,7 @@ public class MainClass {
 
     private async Task Disconnect()
     {
-        await textChatHubConnection.DisposeAsync();
+        await hubConnection.DisposeAsync();
         if (IsConnected)
         {
             Alert("");
@@ -269,12 +269,12 @@ public class MainClass {
     {
         try
         {
-            textChatHubConnection = new HubConnectionBuilder()
-                .WithUrl(NavManager.ToAbsoluteUri($"/chatgpthub?user={user}")) //not using username currently
+            hubConnection = new HubConnectionBuilder()
+                .WithUrl(NavManager.ToAbsoluteUri($"/openaihub?user={user}")) //not using username currently
                 .Build();
 
             //the 'channel'(?) for communication
-            textChatHubConnection.On<string>("textChat", (message) =>
+            hubConnection.On<string>("ai_response", (message) =>
             {
                 if (getStats(message))
                 {
@@ -286,7 +286,7 @@ public class MainClass {
                 StateHasChanged();
             });
 
-            await textChatHubConnection.StartAsync();
+            await hubConnection.StartAsync();
             if (IsConnected)
             {
                 Alert(""); //blank messge
@@ -370,7 +370,7 @@ public class MainClass {
         conversationToSend.Add(thisConversation);
 
         var json = JsonConvert.SerializeObject(conversationToSend);
-        await textChatHubConnection.SendAsync("SendToBackEndHub", json, modelName);
+        await hubConnection.SendAsync("OpenAiService", json, modelName);
 
     }
 
@@ -384,7 +384,7 @@ public class MainClass {
     /// <returns></returns>
     private bool getStats(string text)
     {
-        //get stats - note specific formatting of the string in ChatGPTHub, starts with  "Data...Token Usage"
+        //get stats - note specific formatting of the string in openAIHub, starts with  "Data...Token Usage"
         int indx = text.IndexOf(statsSubstring);
         try
         {
@@ -442,9 +442,9 @@ public class MainClass {
 
     public async ValueTask DisposeAsync()
     {
-        if (textChatHubConnection is not null)
+        if (hubConnection is not null)
         {
-            await textChatHubConnection.DisposeAsync();
+            await hubConnection.DisposeAsync();
         }
     }
 

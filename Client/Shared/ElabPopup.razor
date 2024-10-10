@@ -77,7 +77,7 @@
 
     public string userPrompt = "";
     private static HttpClient Http = new HttpClient();
-    public bool IsConnected => textChatHubConnection?.State == HubConnectionState.Connected;
+    public bool IsConnected => hubConnection?.State == HubConnectionState.Connected;
     private string user = "";
     public string responses = "";
 
@@ -90,7 +90,7 @@
     private string starterPrompt = @"Design a unit of work with  3 x 40 min lessons for students, then design a rubric with 4 levels for the unit. 
 The first lesson must include unpacking the concept description and providing a set of success criteria for the lessons.";
 
-    private HubConnection? textChatHubConnection;
+    private HubConnection? hubConnection;
     [Parameter] public ContentDescription CD1 { get; set; }
     [Parameter] public string ModelName { get; set; }
 
@@ -141,17 +141,17 @@ The first lesson must include unpacking the concept description and providing a 
     {
         try
         {
-            textChatHubConnection = new HubConnectionBuilder()
-                .WithUrl(NavManager.ToAbsoluteUri($"/chatgpthub?user={user}"))
+            hubConnection = new HubConnectionBuilder()
+                .WithUrl(NavManager.ToAbsoluteUri($"/openaihub?user={user}"))
                 .Build();
 
             //the 'channel' for communication
-            textChatHubConnection.On<string>("textChat", (returnText) =>
+            hubConnection.On<string>("ai_response", (returnText) =>
             {
                 addTextToConvHistory(returnText);
             });
 
-            await textChatHubConnection.StartAsync();
+            await hubConnection.StartAsync();
         }
         catch (Exception exc)
         {
@@ -228,7 +228,7 @@ Use this '{editableElab}'. {starterPrompt}.
         //var USM = JsonConvert.DeserializeObject<UserChatMessage>(json);
 
         //send single text request to the hub -
-        await textChatHubConnection.SendAsync("SendToBackEndHub", json, ModelName);
+        await hubConnection.SendAsync("OpenAiService", json, ModelName);
 
     }
 
@@ -246,7 +246,7 @@ Use this '{editableElab}'. {starterPrompt}.
 
 //         messageHistory.Add(userPrompt);
 //         messageHistory.Add(""); //the response - actually move this below. add if odd/even?
-//         if (textChatHubConnection == null)
+//         if (hubConnection == null)
 //         {
 //             await Connect();
 //         }

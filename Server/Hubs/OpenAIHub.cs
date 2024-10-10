@@ -17,14 +17,18 @@ using NeoSmart.SecureStore;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using System.Linq;
+using System.Transactions;
+using Microsoft.Extensions.Options;
+using OpenAI.Images;
+using Microsoft.VisualBasic;
 
 namespace AIV4.Server.Hubs
 {
-    public class ChatGPTHub:Hub
+    public class OpenAIHub:Hub
     {
         // user secret API key for OpenAI is here
         private readonly IConfiguration _config;
-        public ChatGPTHub(IConfiguration config)
+        public OpenAIHub(IConfiguration config)
         {
             _config = config;
         }
@@ -32,31 +36,35 @@ namespace AIV4.Server.Hubs
         [Inject]
         public IWebHostEnvironment Env { get; set; }
 
-        private ChatClient? _client;
+        private ChatClient? _chatClient;
+        private ImageClient? _imageClient;
+        ClientResult<GeneratedImage>? generatedImage;
+
         private string _model = string.Empty;
         private string _keyName = string.Empty;
         private string _receivedLine = string.Empty;
-
 
         /// <summary>
         /// Sends a message to the OpenAI API and handle the streaming response.
         /// </summary>
         /// <param name="message">JSON serialized list of conversation contents.</param>
         /// <param name="model">The model name to use with the API.</param>
-        public async Task SendToBackEndHub(string message, string model)
+        public async Task OpenAiService(string message, string model)
         {
             this._model = model;
 
-
-            var (secretKey, secretPassphrase) = await LoadSecretsAsync();
-
-
-            var conversation = JsonConvert.DeserializeObject<List<ConversationContent>>(message);
+            var secretKey = "";
+            var secretPassphrase = "";
+            var conversation = new List<ConversationContent>();
 
 
-            //get the user secrets if in dev mode
+            //if in dev mode get the user secrets 
             try
             {
+                (secretKey, secretPassphrase) = await LoadSecretsAsync();
+
+                conversation = JsonConvert.DeserializeObject<List<ConversationContent>>(message);
+              
                 if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
                 {
                     if (conversation![0].PassPhrase == "")
@@ -69,27 +77,49 @@ namespace AIV4.Server.Hubs
             { 
             }
 
-
             // Create client based on whether client sends passphrase or their APIkey
-            _client = conversation![0].PassPhrase != secretPassphrase
+            _chatClient = conversation![0].PassPhrase != secretPassphrase
                 ? new ChatClient(model, conversation![0].PassPhrase)
                 : new ChatClient(model, secretKey);
+            _imageClient = conversation![0].PassPhrase != secretPassphrase
+                ? new ImageClient(model, conversation![0].PassPhrase)
+                : new ImageClient(model, secretKey);
             _keyName = conversation![0].PassPhrase != secretPassphrase
                 ? "Using your key"
                 : "Using my API key";
 
-
             // Transform conversation into chat messages
             var chatMessages = ConvertToChatMessages(conversation);
 
-            // send chat messages to OpenAI API and collect streamed responses
-            await SendChatMessagesToOpenAIAsync(chatMessages);
+
+            if(conversation![0].ContentType == ContentType.Text)
+            {
+                // send chat messages to OpenAI API and collect streamed responses
+                await SendChatMessagesToOpenAIAsync(chatMessages);
+            }else if (conversation![0].ContentType == ContentType.Image)
+            {
+                string prompt = conversation![0].Text;
+                ImageGenerationOptions options = new ImageGenerationOptions();
+                options.ResponseFormat = GeneratedImageFormat.Uri;
+                options.Style = GeneratedImageStyle.Natural;
+                options.Quality = GeneratedImageQuality.Standard;
+                options.Size = GeneratedImageSize.W256xH256;
+                generatedImage = await _imageClient.GenerateImageAsync(prompt, options);
+                SendResponseBackToClientAsync(generatedImage.Value.ImageUri.AbsoluteUri);
+            }
+
         }
 
 
+        /// <summary>
+        /// Convert a list of received ConversationContent into a lits of ChatMessages
+        /// </summary>
+        /// <param name="conversation"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         private List<ChatMessage> ConvertToChatMessages(List<ConversationContent> conversation)
         {
-            //ty some linq
+            //tRy some linq - NOT WORKING
             //var chatMessages = conversation
                 //.Where(cc => cc.ContentType == ContentType.Text)
                 //.Select(cc =>
@@ -134,6 +164,13 @@ namespace AIV4.Server.Hubs
         }
 
 
+        private async Task SendImageRequestToOpenAIAsync(string prompt, ImageGenerationOptions options )
+        {
+            generatedImage = await _imageClient.GenerateImageAsync(prompt, options);
+            SendResponseBackToClientAsync(generatedImage.Value.ImageUri.AbsoluteUri);
+        }
+
+
 
         /// <summary>
         /// Load the secrets from secrets.json in Data folder 
@@ -162,7 +199,7 @@ namespace AIV4.Server.Hubs
 
         private async Task SendChatMessagesToOpenAIAsync(List<ChatMessage> chatMessages)
         {
-            var asyncChatUpdates = _client.CompleteChatStreamingAsync(chatMessages);
+            var asyncChatUpdates = _chatClient.CompleteChatStreamingAsync(chatMessages);
 
             // Collect tokens as they come in
             try
@@ -174,7 +211,7 @@ namespace AIV4.Server.Hubs
             }
             catch (Exception ex)
             {
-                await SendMessageToClientAsync(ex.Message);
+                await SendResponseBackToClientAsync(ex.Message);
             }
 
         }
@@ -198,7 +235,7 @@ namespace AIV4.Server.Hubs
 
                     if (_receivedLine.Contains("\n"))
                     {
-                        await SendMessageToClientAsync(MarkDown.Parse(_receivedLine));
+                        await SendResponseBackToClientAsync(MarkDown.Parse(_receivedLine));
                         _receivedLine = string.Empty;
                     }
                 }
@@ -208,10 +245,10 @@ namespace AIV4.Server.Hubs
             {
                 //openAI is not always sending a CRLF at the end, so this was not sending the last line so need to add \n and send last line
                 _receivedLine += "\n";
-                await SendMessageToClientAsync(MarkDown.Parse(_receivedLine));
+                await SendResponseBackToClientAsync(MarkDown.Parse(_receivedLine));
                 _receivedLine = string.Empty;
 
-                await SendMessageToClientAsync($"\n\n\nData...Token Usage In:{chatUpdate.Usage!.InputTokens} Out:{chatUpdate.Usage!.OutputTokens} Total:{chatUpdate.Usage!.TotalTokens}\nModel:{chatUpdate.Model}\nKey: {_keyName}");
+                await SendResponseBackToClientAsync($"\n\n\nData...Token Usage In:{chatUpdate.Usage!.InputTokenCount} Out:{chatUpdate.Usage!.OutputTokenCount} Total:{chatUpdate.Usage!.TotalTokenCount}\nModel:{chatUpdate.Model}\nKey: {_keyName}");
             }
         }
 
@@ -222,9 +259,9 @@ namespace AIV4.Server.Hubs
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        private async Task SendMessageToClientAsync(string message)
+        private async Task SendResponseBackToClientAsync(string message)
         {
-            await Clients.Caller.SendAsync("textChat", message);
+            await Clients.Caller.SendAsync("ai_response", message);
         }
     }
 }

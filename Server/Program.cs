@@ -69,7 +69,7 @@ app.UseRouting();
 app.MapRazorPages();
 app.MapControllers();
 
-app.MapHub<ChatGPTHub>("/chatgpthub"); //where the clients connects to the server
+app.MapHub<OpenAIHub>("/openaihub"); //where the clients connects to the server
 
 app.MapFallbackToFile("index.html");
 
